@@ -1,9 +1,10 @@
 "use strict";
 
-import { app, protocol, BrowserWindow } from "electron";
+import { app, protocol, BrowserWindow, ipcMain } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 const isDevelopment = process.env.NODE_ENV !== "production";
+const path = require("path");
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -15,12 +16,13 @@ async function createWindow() {
   const win = new BrowserWindow({
     title: "Resume Commander",
     backgroundColor: "#000",
-    minWidth: 1600,
-    minHeight: 1000,
+    minWidth: 800,
+    minHeight: 600,
     autoHideMenuBar: true,
     // TODO: Add icon
     // icon: path.join(__dirname, "../src/assets/icons/borderland-icon.png"),
     webPreferences: {
+      preload: path.join(__dirname, "preload.js"),
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
@@ -67,6 +69,11 @@ app.on("ready", async () => {
     }
   }
   createWindow();
+});
+
+// Close app when IPC "exit" is received
+ipcMain.on("close-app", () => {
+  app.quit();
 });
 
 // Exit cleanly on request from parent process in development mode.

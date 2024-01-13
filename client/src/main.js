@@ -22,12 +22,13 @@ import VueCookies from "vue3-cookies";
 import vClickOutside from "click-outside-vue3";
 import { Vue3Mq } from "vue3-mq";
 
-createApp(App)
+const app = createApp(App)
   .use(store)
   .use(router)
   .use(VueCookies)
   .use(vClickOutside)
   .use(Vue3Mq, {
     preset: "devices", // default
-  })
-  .mount("#app");
+  });
+
+app.mount("#app");
