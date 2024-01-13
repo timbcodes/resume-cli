@@ -13,8 +13,13 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    title: "Resume Commander",
+    backgroundColor: "#000",
+    minWidth: 1600,
+    minHeight: 1000,
+    autoHideMenuBar: true,
+    // TODO: Add icon
+    // icon: path.join(__dirname, "../src/assets/icons/borderland-icon.png"),
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
