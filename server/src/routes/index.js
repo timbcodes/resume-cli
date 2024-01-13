@@ -5,9 +5,9 @@ const corsPolicy = require('../middleware/CORS/cors');
 /* Use the CORS middleware */
 router.use(corsPolicy.corsMiddleware());
 
-/* GET users listing. */
+/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.send("API is online!");
 });
 
 module.exports = router;
