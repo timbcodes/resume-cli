@@ -21,6 +21,7 @@
     "click-outside-vue3": "^4.0.1",
     "core-js": "^3.8.3",
     "express-session": "^1.17.3",
+    "joi": "^17.11.0",
     "js-logger": "^1.6.1",
     "path-browserify": "^1.0.1",
     "uuidv4": "^6.2.13",

@@ -22,6 +22,7 @@ async function createWindow() {
     // TODO: Add icon
     // icon: path.join(__dirname, "../src/assets/icons/borderland-icon.png"),
     webPreferences: {
+      spellcheck: false, // TODO: Determine if spellcheck is needed
       preload: path.join(__dirname, "preload.js"),
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info

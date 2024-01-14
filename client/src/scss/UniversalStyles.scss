@@ -40,8 +40,11 @@ button {
 input[type="text"] {
   size: auto; // grow with text
 }
-
 textarea {
   width: auto; // grow with text horizontally
   height: auto; // grow with text vertically
+}
+::selection {
+  background: $ResGreen;
+  color: $ResBlack;
 }
