@@ -16,6 +16,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "LoginFields",
   data() {
@@ -25,9 +26,30 @@ export default {
     };
   },
   methods: {
-    login() {
+    ...mapActions(["loginUser"]),
+    async login() {
       this.$emit("clearMessage");
       this.$emit("loading");
+      const data = {
+        email: this.email,
+        password: this.password,
+      };
+      try {
+        const results = await this.loginUser(data);
+        console.log(results);
+        if (results.status === 200) {
+          localStorage.setItem("jwtToken", results.data.token);
+          this.$emit("noload");
+          this.$router.go();
+        }
+        this.$emit("noload");
+      } catch (error) {
+        this.$emit("noload");
+        this.$emit("message", "Invalid email or password");
+        this.email = "";
+        this.password = "";
+        this.$refs.emailField.focus();
+      }
     },
   },
   mounted() {

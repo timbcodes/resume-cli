@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const apiKeyCheck = require('../js/utils/api_check.utils');
+const corsPolicy = require('../middleware/CORS/cors');
 const emailHandler = require('../js/handlers/email.handler');
 const authenticate = require('../js/handlers/auth.handler');
 const securityController = require('../js/controllers/security.controller');
 
+router.use(corsPolicy.corsMiddleware());
 router.use(apiKeyCheck.authenticateKey);
 
 router.post('/send_security_email', emailHandler.sendSecurityEmail);
