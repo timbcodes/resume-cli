@@ -87,7 +87,15 @@ export default {
           .map((detail) => detail.message)
           .join(". ");
         console.log(errorMessage);
+        this.$emit("noload");
         this.$emit("message", errorMessage);
+        this.email = "";
+        this.username = "";
+        this.password = "";
+        this.confirmPassword = "";
+        this.$nextTick(() => {
+          this.$refs.emailField.focus();
+        });
         return;
       }
       // TODO: Check if email or username exists

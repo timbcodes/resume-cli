@@ -11,13 +11,25 @@
       <div class="main-content">
         <div class="left-side">
           <div class="login-container" v-if="login">
-            <LoginFields @loading="lowerLoading" @noload="loadingOff" />
+            <LoginFields
+              @loading="lowerLoading"
+              @noload="loadingOff"
+              @message="lowerMessage"
+            />
           </div>
           <div class="register-container" v-if="register">
-            <RegisterFields />
+            <RegisterFields
+              @loading="lowerLoading"
+              @noload="loadingOff"
+              @message="lowerMessage"
+            />
           </div>
           <div class="reset-pass-container" v-if="resetPass">
-            <ResetPassword />
+            <ResetPassword
+              @loading="lowerLoading"
+              @noload="loadingOff"
+              @message="lowerMessage"
+            />
           </div>
         </div>
         <div class="right-side">
@@ -79,6 +91,7 @@ import ResetPassword from "@/components/LoginView/ResetPassword.vue";
 import ResetMenu from "@/components/LoginView/UI/ResetMenu.vue";
 import AppLogo from "@/components/LoginView/UI/AppLogo.vue";
 import TimeClock from "@/components/LoginView/UI/TimeClock.vue";
+import LowerMessage from "@/components/UI/LowerMessage.vue";
 import LowerLoading from "@/components/UI/LowerLoading.vue";
 import LoginFooter from "@/components/LoginView/UI/LoginFooter.vue";
 export default {
@@ -92,6 +105,7 @@ export default {
     ResetMenu,
     AppLogo,
     TimeClock,
+    LowerMessage,
     LowerLoading,
     LoginFooter,
   },
@@ -114,21 +128,32 @@ export default {
   },
   methods: {
     openLogin() {
+      this.exitDialog = false;
+      this.message = false;
+      this.loading = false;
       this.login = true;
       this.register = false;
       this.resetPass = false;
     },
     openRegister() {
+      this.exitDialog = false;
+      this.message = false;
+      this.loading = false;
       this.login = false;
       this.register = true;
       this.resetPass = false;
     },
     openResetPass() {
+      this.exitDialog = false;
+      this.message = false;
+      this.loading = false;
       this.login = false;
       this.register = false;
       this.resetPass = true;
     },
-    sendMessage(message) {
+    lowerMessage(message) {
+      console.log(message);
+      this.message = true;
       this.messageContent = message;
     },
     lowerLoading() {
