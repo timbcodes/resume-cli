@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="username">
-      <p>Username:</p>
-      <input type="text" v-model="username" ref="usernameField" />
+      <p>Email:</p>
+      <input type="text" v-model="email" ref="emailField" />
     </div>
     <div class="password">
       <p>Password:</p>
@@ -20,18 +20,19 @@ export default {
   name: "LoginFields",
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
     };
   },
   methods: {
     login() {
+      this.$emit("clearMessage");
       this.$emit("loading");
     },
   },
   mounted() {
     this.$nextTick(() => {
-      this.$refs.usernameField.focus();
+      this.$refs.emailField.focus();
     });
   },
 };

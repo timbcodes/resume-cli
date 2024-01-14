@@ -4,10 +4,6 @@
       <p>Email:</p>
       <input type="text" v-model="email" ref="emailField" />
     </div>
-    <div class="username" v-if="!twoFactor">
-      <p>Username:</p>
-      <input type="text" v-model="username" ref="usernameField" />
-    </div>
     <div class="password" v-if="!twoFactor">
       <p>Password:</p>
       <input type="password" v-model="password" ref="passwordField" />
@@ -39,7 +35,6 @@ export default {
   data() {
     return {
       email: "",
-      username: "",
       password: "",
       confirmPassword: "",
       twoFactor: false,
@@ -57,12 +52,6 @@ export default {
             "string.empty": "Email is required",
             "any.required": "Email is required",
           }),
-        username: Joi.string().min(3).max(32).required().messages({
-          "string.min": "Username must be at least 3 characters",
-          "string.max": "Username must be no more than 32 characters",
-          "string.empty": "Username is required",
-          "any.required": "Username is required",
-        }),
         password: Joi.string().min(8).max(254).required().messages({
           "string.min": "Password must be at least 8 characters",
           "string.empty": "Password is required",
@@ -79,13 +68,13 @@ export default {
       });
       const { value, error } = schema.validate({
         email: this.email,
-        username: this.username,
         password: this.password,
         confirmPassword: this.confirmPassword,
       });
       return { value, error };
     },
     submit() {
+      this.$emit("clearMessage");
       this.$emit("loading");
       const { error } = this.validateData();
       if (error) {
@@ -95,7 +84,6 @@ export default {
         this.$emit("noload");
         this.$emit("message", errorMessage);
         this.email = "";
-        this.username = "";
         this.password = "";
         this.confirmPassword = "";
         this.$nextTick(() => {

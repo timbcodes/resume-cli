@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="username" v-if="!twoFactor">
-      <p>Username:</p>
-      <input type="text" v-model="username" ref="usernameField" />
+      <p>Email:</p>
+      <input type="text" v-model="email" ref="emailField" />
     </div>
     <div class="new-password" v-if="!twoFactor">
       <p>New Password:</p>
@@ -34,7 +34,7 @@ export default {
   name: "PasswordResetFields",
   data() {
     return {
-      username: "",
+      email: "",
       newPassword: "",
       confirmNewPassword: "",
       twoFactor: false,
@@ -44,8 +44,8 @@ export default {
   methods: {
     validateData() {
       const schema = Joi.object({
-        username: Joi.string().required().messages({
-          "string.empty": "Username is required",
+        email: Joi.string().required().messages({
+          "string.empty": "Email is required",
         }),
         newPassword: Joi.string().min(8).max(254).required().messages({
           "string.min": "New Password must be at least 8 characters",
@@ -61,13 +61,14 @@ export default {
       }).with("newPassword", "confirmNewPassword");
 
       const { value, error } = schema.validate({
-        username: this.username,
+        email: this.email,
         newPassword: this.newPassword,
         confirmNewPassword: this.confirmNewPassword,
       });
       return { value, error };
     },
     submit() {
+      this.$emit("clearMessage");
       const { error } = this.validateData();
       if (error) {
         const errorMessage = error.details
@@ -78,12 +79,15 @@ export default {
       }
       // Show two-factor authentication input
       this.twoFactor = true;
+      this.$nextTick(() => {
+        this.$refs.twoFactorField.focus();
+      });
     },
     resetPassword() {
       // Add your logic here to handle password reset with two-factor code
       this.$emit(
         "reset-password",
-        this.username,
+        this.email,
         this.newPassword,
         this.twoFactorCode
       );
@@ -91,7 +95,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.$refs.usernameField.focus();
+      this.$refs.emailField.focus();
     });
   },
 };

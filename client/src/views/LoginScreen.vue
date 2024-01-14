@@ -15,6 +15,7 @@
               @loading="lowerLoading"
               @noload="loadingOff"
               @message="lowerMessage"
+              @clearMessage="clearMessage"
             />
           </div>
           <div class="register-container" v-if="register">
@@ -22,6 +23,7 @@
               @loading="lowerLoading"
               @noload="loadingOff"
               @message="lowerMessage"
+              @clearMessage="clearMessage"
             />
           </div>
           <div class="reset-pass-container" v-if="resetPass">
@@ -29,6 +31,7 @@
               @loading="lowerLoading"
               @noload="loadingOff"
               @message="lowerMessage"
+              @clearMessage="clearMessage"
             />
           </div>
         </div>
@@ -150,6 +153,10 @@ export default {
       this.login = false;
       this.register = false;
       this.resetPass = true;
+    },
+    clearMessage() {
+      this.message = false;
+      this.messageContent = "";
     },
     lowerMessage(message) {
       this.message = true;
