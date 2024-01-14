@@ -152,7 +152,6 @@ export default {
       this.resetPass = true;
     },
     lowerMessage(message) {
-      console.log(message);
       this.message = true;
       this.messageContent = message;
     },
@@ -169,7 +168,7 @@ export default {
       });
     },
     exit() {
-      if (this.exitConfirm === "Y") {
+      if (this.exitConfirm === "Y" || this.exitConfirm === "y") {
         window.electron.send("close-app");
       } else {
         this.exitConfirm = "";

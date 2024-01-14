@@ -47,7 +47,7 @@ export default {
         username: Joi.string().required().messages({
           "string.empty": "Username is required",
         }),
-        newPassword: Joi.string().min(8).required().messages({
+        newPassword: Joi.string().min(8).max(254).required().messages({
           "string.min": "New Password must be at least 8 characters",
           "string.empty": "New Password is required",
         }),

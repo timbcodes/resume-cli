@@ -57,7 +57,13 @@ export default {
             "string.empty": "Email is required",
             "any.required": "Email is required",
           }),
-        password: Joi.string().min(8).required().messages({
+        username: Joi.string().min(3).max(32).required().messages({
+          "string.min": "Username must be at least 3 characters",
+          "string.max": "Username must be no more than 32 characters",
+          "string.empty": "Username is required",
+          "any.required": "Username is required",
+        }),
+        password: Joi.string().min(8).max(254).required().messages({
           "string.min": "Password must be at least 8 characters",
           "string.empty": "Password is required",
           "any.required": "Password is required",
@@ -73,6 +79,7 @@ export default {
       });
       const { value, error } = schema.validate({
         email: this.email,
+        username: this.username,
         password: this.password,
         confirmPassword: this.confirmPassword,
       });
@@ -80,13 +87,11 @@ export default {
     },
     submit() {
       this.$emit("loading");
-      console.log("submit");
       const { error } = this.validateData();
       if (error) {
         const errorMessage = error.details
           .map((detail) => detail.message)
           .join(". ");
-        console.log(errorMessage);
         this.$emit("noload");
         this.$emit("message", errorMessage);
         this.email = "";
