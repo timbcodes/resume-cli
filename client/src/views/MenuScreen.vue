@@ -15,6 +15,7 @@
         <MainMenu />
       </div>
       <div class="main-menu-footer">
+        <div class="help-fix" v-if="help"></div>
         <div class="menu-lower-input" v-if="!help">
           <div class="menu-selection-container" v-if="menuOpen">
             <div class="menu-selection">
@@ -87,7 +88,7 @@ export default {
       const selection = this.$refs.menuSelect.value;
       switch (selection) {
         case "1":
-          this.$router.push("/create-main-resume");
+          this.$router.push("/resume");
           break;
         case "2":
           this.$router.push("/edit-user-details");
@@ -214,6 +215,10 @@ export default {
     bottom: 0;
     width: 100%;
     height: 75px;
+    .help-fix {
+      width: 100%;
+      height: 25px;
+    }
     .menu-lower-input {
       width: 100%;
       height: 25px;

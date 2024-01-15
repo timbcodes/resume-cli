@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MenuScreen from "@/views/MenuScreen.vue";
+import MainResume from "@/views/MainResume.vue";
 import LoginScreen from "@/views/LoginScreen.vue";
 
 const routes = [
@@ -7,6 +8,14 @@ const routes = [
     path: "/",
     name: "MenuScreen",
     component: MenuScreen,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/resume",
+    name: "MainResume",
+    component: MainResume,
     meta: {
       requiresAuth: true,
     },
