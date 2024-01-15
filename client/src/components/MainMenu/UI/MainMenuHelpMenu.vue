@@ -1,10 +1,6 @@
 <template>
   <div>
-    <p><span>RETURN</span> Submit</p>
-    <p><span>TAB</span> Select/Cycle Fields</p>
-    <p><span>F1</span> Help</p>
-    <p><span>F12</span> Logout</p>
-    <p><span>ESC</span> Exit</p>
+    <p><span>F1</span> Go Back</p>
   </div>
 </template>
 <script>
@@ -19,12 +15,8 @@ export default {
       this.$emit("exit");
     },
     handleKeydown(e) {
-      if (e.key === "F12") {
-        this.logout();
-      } else if (e.key === "Escape") {
-        this.exit();
-      } else if (e.key === "F1") {
-        this.$emit("help");
+      if (e.key === "F1") {
+        this.$emit("closeHelp");
       }
     },
   },
