@@ -2,7 +2,6 @@ import axios from "axios";
 import signupCalls from "@/js/api/login_signup.api";
 export default {
   loginUser(_, payload) {
-    console.log(payload);
     return signupCalls.loginUser(payload);
   },
   logoutUser() {

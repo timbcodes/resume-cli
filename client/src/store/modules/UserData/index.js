@@ -1,4 +1,4 @@
-import userDataActions from "./actions";
+import userDataMutations from "./mutations";
 export default {
   state() {
     return {
@@ -8,5 +8,5 @@ export default {
       },
     };
   },
-  actions: userDataActions,
+  mutations: userDataMutations,
 };

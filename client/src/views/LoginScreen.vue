@@ -44,17 +44,8 @@
       </div>
       <div class="footer">
         <div class="lower-input">
-          <div class="exit-confirmation" v-if="exitDialog">
-            <p>
-              Are you sure you want to exit? (Type "Y" for yes, any other key
-              for no):
-            </p>
-            <input
-              type="text"
-              v-model="exitConfirm"
-              @keyup.enter="exit"
-              ref="exitField"
-            />
+          <div v-if="exitDialog">
+            <ExitApp @close-exit="closeExitDialog" />
           </div>
           <LowerMessage v-if="message" :message="messageContent" />
           <LowerLoading v-if="loading" />
@@ -96,6 +87,7 @@ import AppLogo from "@/components/LoginView/UI/AppLogo.vue";
 import TimeClock from "@/components/LoginView/UI/TimeClock.vue";
 import LowerMessage from "@/components/UI/LowerMessage.vue";
 import LowerLoading from "@/components/UI/LowerLoading.vue";
+import ExitApp from "@/components/UI/ExitApp.vue";
 import LoginFooter from "@/components/LoginView/UI/LoginFooter.vue";
 export default {
   name: "LoginScreen",
@@ -110,6 +102,7 @@ export default {
     TimeClock,
     LowerMessage,
     LowerLoading,
+    ExitApp,
     LoginFooter,
   },
   data() {
@@ -170,17 +163,9 @@ export default {
     },
     openExitDialog() {
       this.exitDialog = true;
-      this.$nextTick(() => {
-        this.$refs.exitField.focus();
-      });
     },
-    exit() {
-      if (this.exitConfirm === "Y" || this.exitConfirm === "y") {
-        window.electron.send("close-app");
-      } else {
-        this.exitConfirm = "";
-        this.exitDialog = false;
-      }
+    closeExitDialog() {
+      this.exitDialog = false;
     },
   },
 };
@@ -241,11 +226,6 @@ export default {
     .lower-input {
       width: 100%;
       height: 25px;
-      .exit-confirmation {
-        width: 100%;
-        height: 25px;
-        @include flex(row, flex-start, center);
-      }
     }
     .footer-container {
       width: 100%;

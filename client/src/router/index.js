@@ -32,7 +32,7 @@ router.beforeEach(async (to, _, next) => {
     (to.name === "LoginScreen" || to.name === "ResetPassword") &&
     isAuthenticated
   ) {
-    next({ name: "MainDashboard" });
+    next({ name: "MenuScreen" });
   } else {
     next();
   }

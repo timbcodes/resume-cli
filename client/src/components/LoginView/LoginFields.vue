@@ -16,7 +16,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   name: "LoginFields",
   data() {
@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     ...mapActions(["loginUser"]),
+    ...mapMutations(["setUserData"]),
     async login() {
       this.$emit("clearMessage");
       this.$emit("loading");
@@ -36,11 +37,12 @@ export default {
       };
       try {
         const results = await this.loginUser(data);
-        console.log(results);
         if (results.status === 200) {
+          console.log(results.data.response);
           localStorage.setItem("jwtToken", results.data.token);
-          this.$emit("noload");
+          this.setUserData(results.data.response);
           this.$router.go();
+          this.$emit("noload");
         }
         this.$emit("noload");
       } catch (error) {
