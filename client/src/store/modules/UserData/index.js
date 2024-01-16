@@ -5,6 +5,13 @@ export default {
       userData: {
         id: "",
         email: "",
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        address: "",
+        city: "",
+        state: "",
+        zipCode: "",
       },
     };
   },

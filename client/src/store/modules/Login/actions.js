@@ -1,8 +1,8 @@
 import axios from "axios";
 import signupCalls from "@/js/api/login_signup.api";
 export default {
-  loginUser(_, payload) {
-    return signupCalls.loginUser(payload);
+  async loginUser(_, payload) {
+    return await signupCalls.loginUser(payload);
   },
   logoutUser() {
     // remove token from local storage

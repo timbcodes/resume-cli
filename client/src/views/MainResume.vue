@@ -1,16 +1,27 @@
 <template>
   <div>
+    <div class="logo-container">
+      <p>RM/50 by Borderland Software</p>
+    </div>
     <div class="main-resume">
+      <div class="main-resume-container">
+        <UserDetails
+          v-if="details"
+          @loading="showLoading"
+          @noLoading="hideLoading"
+          @next="goToJobTitle"
+          @message="showMessage"
+        />
+      </div>
       <div class="resume-footer">
-        <div class="resume-lower-input"></div>
+        <div class="resume-lower-input">
+          <p v-if="!loading && !message">Fields with * must be completed</p>
+          <LowerMessage v-if="message" :message="messageContent" />
+          <LowerLoading v-if="loading" />
+        </div>
         <div class="resume-menu-footer-container">
           <MainMenuFooter>
-            <ResumeFooterMenu
-              v-if="!help"
-              @exit="openExitDialog"
-              @logout="logout"
-              @help="openHelp"
-            />
+            <ResumeFooterMenu />
           </MainMenuFooter>
         </div>
       </div>
@@ -18,39 +29,46 @@
   </div>
 </template>
 <script>
+import UserDetails from "@/components/MainResume/UI/UserDetails.vue";
+import LowerLoading from "@/components/UI/LowerLoading.vue";
+import LowerMessage from "@/components/UI/LowerMessage.vue";
 import ResumeFooterMenu from "@/components/MainResume/UI/ResumeFooterMenu.vue";
 import MainMenuFooter from "@/components/MainMenu/UI/MainMenuFooter.vue";
 export default {
   name: "MainResume",
   components: {
+    UserDetails,
+    LowerLoading,
+    LowerMessage,
     ResumeFooterMenu,
     MainMenuFooter,
   },
   data() {
     return {
-      menuOpen: true,
-      exitDialog: false,
+      details: true,
+      jobTitle: false,
       message: false,
       messageContent: "",
       loading: false,
-      help: false,
     };
   },
   methods: {
-    openExitDialog() {
-      this.exitDialog = true;
+    goToJobTitle() {
+      this.details = false;
+      this.jobTitle = true;
     },
-    closeExitDialog() {
-      this.exitDialog = false;
+    showLoading() {
+      this.loading = true;
     },
-    openHelp() {
-      this.help = true;
+    hideLoading() {
+      this.loading = false;
     },
-    closeHelp() {
-      this.help = false;
-    },
-    logout() {
-      this.$store.dispatch("logout");
+    showMessage(message) {
+      this.message = true;
+      this.messageContent = message;
+      setTimeout(() => {
+        this.message = false;
+      }, 3000);
     },
   },
 };
@@ -58,9 +76,14 @@ export default {
 <style lang="scss" scoped>
 @import "@/scss/variables.scss";
 @import "@/scss/mixins.scss";
+.logo-container {
+  width: 100%;
+  height: 50px;
+  @include flexCenter();
+}
 .main-resume {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 50px);
   @include flexCenterColumn();
   .resume-footer {
     position: fixed;
