@@ -28,7 +28,8 @@
   </div>
 </template>
 <script>
-import { mapMutations } from "vuex";
+import { mapActions, mapMutations } from "vuex";
+import Joi from "joi";
 export default {
   name: "UserDetails",
   data() {
@@ -43,21 +44,60 @@ export default {
       emailAddress: "",
     };
   },
+  computed: {
+    validationSchema() {
+      return Joi.object({
+        firstName: Joi.string().max(511).required().messages({
+          "string.empty": `First Name is required`,
+        }),
+        lastName: Joi.string().max(511).required().messages({
+          "string.empty": `Last Name is required`,
+        }),
+        address: Joi.string().max(511).required().messages({
+          "string.empty": `Address is required`,
+        }),
+        city: Joi.string().max(511).required().messages({
+          "string.empty": `City is required`,
+        }),
+        state: Joi.string().max(511).required().messages({
+          "string.empty": `State is required`,
+        }),
+        postalCode: Joi.string().max(511).required().messages({
+          "string.empty": `Postal Code is required`,
+        }),
+        phoneNumber: Joi.string().max(511).required().messages({
+          "string.empty": `Phone Number is required`,
+        }),
+        emailAddress: Joi.string()
+          .email({ tlds: { allow: false } })
+          .max(511)
+          .required()
+          .messages({
+            "string.empty": `Email Address is required`,
+            "string.email": `Email Address must be a valid email`,
+          }),
+      });
+    },
+  },
   methods: {
+    ...mapActions(["submitUserDetails"]),
     ...mapMutations(["setUserDetails"]),
-    nextPage() {
+    async nextPage() {
       this.$emit("loading");
-      if (
-        this.firstName === "" ||
-        this.lastName === "" ||
-        this.address === "" ||
-        this.city === "" ||
-        this.state === "" ||
-        this.postalCode === "" ||
-        this.phoneNumber === "" ||
-        this.emailAddress === ""
-      ) {
-        this.$emit("message", "Please complete all fields");
+      const { error } = this.validationSchema.validate({
+        firstName: this.firstName,
+        lastName: this.lastName,
+        address: this.address,
+        city: this.city,
+        state: this.state,
+        postalCode: this.postalCode,
+        phoneNumber: this.phoneNumber,
+        emailAddress: this.emailAddress,
+      });
+      if (error) {
+        this.$emit("noLoading");
+        this.$emit("message", error.message);
+        this.$emit("noLoading");
         return;
       }
       this.setUserDetails({
@@ -70,6 +110,7 @@ export default {
         phoneNumber: this.phoneNumber,
         emailAddress: this.emailAddress,
       });
+      await this.submitUserDetails();
       this.$emit("noLoading");
       this.$emit("next");
     },

@@ -15,7 +15,9 @@
       </div>
       <div class="resume-footer">
         <div class="resume-lower-input">
-          <p v-if="!loading && !message">Fields with * must be completed</p>
+          <p v-if="!loading && !message && fields">
+            Fields with * must be completed
+          </p>
           <LowerMessage v-if="message" :message="messageContent" />
           <LowerLoading v-if="loading" />
         </div>
@@ -46,6 +48,7 @@ export default {
   data() {
     return {
       details: true,
+      fields: true,
       jobTitle: false,
       message: false,
       messageContent: "",
@@ -54,6 +57,7 @@ export default {
   },
   methods: {
     goToJobTitle() {
+      this.fields = false;
       this.details = false;
       this.jobTitle = true;
     },
