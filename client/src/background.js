@@ -17,7 +17,7 @@ async function createWindow() {
     title: "Resume Commander",
     backgroundColor: "#000",
     minWidth: 800,
-    minHeight: 600,
+    minHeight: 800,
     autoHideMenuBar: true,
     // TODO: Add icon
     // icon: path.join(__dirname, "../src/assets/icons/borderland-icon.png"),

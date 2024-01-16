@@ -12,11 +12,21 @@
           @next="goToJobTitle"
           @message="showMessage"
         />
+        <JobTitle
+          v-if="jobTitle"
+          @loading="showLoading"
+          @noLoading="hideLoading"
+          @next="goToFields"
+          @message="showMessage"
+        />
       </div>
       <div class="resume-footer">
         <div class="resume-lower-input">
           <p v-if="!loading && !message && fields">
             Fields with * must be completed
+          </p>
+          <p v-if="!loading && !message && jobTitle">
+            All fields must be completed before continuing
           </p>
           <LowerMessage v-if="message" :message="messageContent" />
           <LowerLoading v-if="loading" />
@@ -32,6 +42,7 @@
 </template>
 <script>
 import UserDetails from "@/components/MainResume/UI/UserDetails.vue";
+import JobTitle from "@/components/MainResume/JobTitle.vue";
 import LowerLoading from "@/components/UI/LowerLoading.vue";
 import LowerMessage from "@/components/UI/LowerMessage.vue";
 import ResumeFooterMenu from "@/components/MainResume/UI/ResumeFooterMenu.vue";
@@ -40,6 +51,7 @@ export default {
   name: "MainResume",
   components: {
     UserDetails,
+    JobTitle,
     LowerLoading,
     LowerMessage,
     ResumeFooterMenu,
@@ -47,9 +59,9 @@ export default {
   },
   data() {
     return {
-      details: true,
-      fields: true,
-      jobTitle: false,
+      details: false,
+      fields: false,
+      jobTitle: true,
       message: false,
       messageContent: "",
       loading: false,

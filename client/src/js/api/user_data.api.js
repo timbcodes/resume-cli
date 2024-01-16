@@ -4,7 +4,17 @@ export default {
   async submitUserDetails(payload) {
     const response = await axiosUtils.axiosCall(
       "users",
-      "update_user_info",
+      "set_user_info",
+      "post",
+      true,
+      payload
+    );
+    return response;
+  },
+  async sumbitAdditionalInfo(payload) {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_additional_info",
       "post",
       true,
       payload

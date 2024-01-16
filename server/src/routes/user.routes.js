@@ -8,6 +8,6 @@ const userController = require('../js/controllers/user.controller');
 router.use(corsPolicy.corsMiddleware());
 router.use(apiKeyCheck.authenticateKey);
 
-router.post('/update_user_info', authenticate, userController.updateUserInfo);
+router.post('/set_user_info', authenticate, userController.setUserInfo);
 
 module.exports = router;

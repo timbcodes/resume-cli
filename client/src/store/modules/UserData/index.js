@@ -1,19 +1,29 @@
+import userDataActions from "./actions";
+import userDataGetters from "./getters";
 import userDataMutations from "./mutations";
 export default {
   state() {
     return {
       userData: {
-        id: "",
-        email: "",
+        emailAddress: "",
         firstName: "",
         lastName: "",
         phoneNumber: "",
         address: "",
         city: "",
         state: "",
-        zipCode: "",
+        postalCode: "",
+        jobTitle: "",
+        titleSearch: "",
+        careerYears: "",
+        careerLevel: "",
+        careerIndustry: "",
+        previousJobs: "",
+        breifSummary: "",
       },
     };
   },
+  actions: userDataActions,
+  getters: userDataGetters,
   mutations: userDataMutations,
 };
