@@ -16,17 +16,25 @@
           v-if="jobTitle"
           @loading="showLoading"
           @noLoading="hideLoading"
-          @next="goToFields"
+          @nextPage="goToFields"
+          @message="showMessage"
+        />
+        <Fields
+          v-if="fields"
+          @loading="showLoading"
+          @noLoading="hideLoading"
+          @nextPage="goToLinks"
           @message="showMessage"
         />
       </div>
       <div class="resume-footer">
         <div class="resume-lower-input">
-          <p v-if="!loading && !message && fields">
+          <p v-if="!loading && !message && (details || fields)">
             Fields with * must be completed
           </p>
           <p v-if="!loading && !message && jobTitle">
-            All fields must be completed before continuing
+            All fields must be completed, hit <span>RETURN</span> to continue
+            when done
           </p>
           <LowerMessage v-if="message" :message="messageContent" />
           <LowerLoading v-if="loading" />
@@ -60,8 +68,8 @@ export default {
   data() {
     return {
       details: false,
-      fields: false,
-      jobTitle: true,
+      jobTitle: false,
+      fields: true,
       message: false,
       messageContent: "",
       loading: false,
@@ -72,6 +80,11 @@ export default {
       this.fields = false;
       this.details = false;
       this.jobTitle = true;
+    },
+    goToFields() {
+      this.fields = true;
+      this.details = false;
+      this.jobTitle = false;
     },
     showLoading() {
       this.loading = true;
@@ -109,6 +122,10 @@ export default {
     .resume-lower-input {
       width: 100%;
       height: 25px;
+      span {
+        color: $ResBlack;
+        background-color: $ResGreen;
+      }
     }
     .resume-menu-footer-container {
       width: 100%;

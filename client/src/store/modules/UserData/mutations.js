@@ -14,4 +14,14 @@ export default {
     state.userData.state = payload.state;
     state.userData.postalCode = payload.postalCode;
   },
+  setAdditionalDetails(state, payload) {
+    console.log(payload);
+    state.userData.jobTitle = payload.jobTitle;
+    state.userData.lookingFor = payload.lookingFor;
+    state.userData.careerYears = payload.careerYears;
+    state.userData.industry = payload.industry;
+    state.userData.howManyJobs = payload.howManyJobs;
+    state.userData.briefSummary = payload.briefSummary;
+    console.log(state.userData);
+  },
 };

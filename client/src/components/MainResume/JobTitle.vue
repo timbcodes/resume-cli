@@ -14,29 +14,26 @@
         <p>What Job Title Are You Looking For?......................</p>
         <input type="text" v-model="lookingFor" ref="lookingFor" />
       </div>
-      <div class="career-years">
-        <p>How Many Years Have You Been in Your Career?.............</p>
-        <input type="text" v-model="careerYears" ref="careerYears" />
-      </div>
-      <div class="career-level">
-        <p>What is Your Career Level?...............................</p>
-        <input type="text" v-model="careerLevel" ref="careerLevel" />
-      </div>
       <div class="industry">
         <p>What Industry Are You In?................................</p>
         <input type="text" v-model="industry" ref="industry" />
       </div>
+      <div class="career-years">
+        <p>How Many Years Have You Been in Your Career?.............</p>
+        <input type="text" v-model="careerYears" ref="careerYears" />
+      </div>
       <div class="how-many-jobs">
-        <p>How Many Jobs do You Want to Include on Your Resume?.....</p>
+        <p>How Many Jobs do You Want to Include in Your Resume?.....</p>
         <input type="text" v-model="howManyJobs" ref="howManyJobs" />
       </div>
-      <div class="breif-summary">
+      <div class="brief-summary">
         <div class="text-area">
           <p>Give a Brief Summary of Your Career History:</p>
           <textarea
-            ref="breifSummary"
-            v-model.lazy="breifSummary"
+            ref="briefSummary"
+            v-model.lazy="briefSummary"
             @input="handleInput"
+            @keypress.enter.prevent="validateAndSubmit"
           ></textarea>
         </div>
         <div class="char-countdown">
@@ -47,6 +44,8 @@
   </div>
 </template>
 <script>
+import { mapActions, mapMutations } from "vuex";
+import Joi from "joi";
 export default {
   name: "JobTitle",
   data() {
@@ -54,34 +53,97 @@ export default {
       jobTitle: "",
       lookingFor: "",
       careerYears: "",
-      careerLevel: "",
       industry: "",
       howManyJobs: "",
-      breifSummary: "",
+      briefSummary: "",
       startingChars: 300,
     };
   },
   computed: {
     isCharLimitReached() {
-      return this.breifSummary.length > 300;
+      return this.briefSummary.length > 300;
+    },
+    validationSchema() {
+      return Joi.object({
+        jobTitle: Joi.string().max(255).required().messages({
+          "string.empty": `Job Title is required`,
+        }),
+        lookingFor: Joi.string().max(255).required().messages({
+          "string.empty": `Looking For is required`,
+        }),
+        careerYears: Joi.string().max(255).required().messages({
+          "string.empty": `Career Years is required`,
+        }),
+        industry: Joi.string().max(255).required().messages({
+          "string.empty": `Industry is required`,
+        }),
+        howManyJobs: Joi.string().max(255).required().messages({
+          "string.empty": `How Many Jobs is required`,
+        }),
+        briefSummary: Joi.string().max(300).required().messages({
+          "string.empty": `Brief Summary is required`,
+        }),
+      });
     },
   },
   watch: {
-    breifSummary() {
+    briefSummary() {
       this.countDownChars();
     },
   },
   methods: {
+    ...mapActions(["submitAdditionalInfo"]),
+    ...mapMutations(["setAdditionalDetails"]),
     countDownChars() {
-      this.startingChars = 300 - this.breifSummary.length;
+      this.startingChars = 300 - this.briefSummary.length;
     },
     handleInput(event) {
       const maxLength = 300;
       if (event.target.value.length > maxLength) {
         event.target.value = event.target.value.substr(0, maxLength);
       }
-      this.breifSummary = event.target.value;
-      this.startingChars = maxLength - this.breifSummary.length;
+      this.briefSummary = event.target.value;
+      this.startingChars = maxLength - this.briefSummary.length;
+    },
+    async validateAndSubmit() {
+      this.$emit("loading");
+      console.log(this.briefSummary);
+      const { error } = this.validationSchema.validate({
+        jobTitle: this.jobTitle,
+        lookingFor: this.lookingFor,
+        careerYears: this.careerYears,
+        industry: this.industry,
+        howManyJobs: this.howManyJobs,
+        briefSummary: this.briefSummary,
+      });
+      if (error) {
+        this.$emit("noLoading");
+        this.$emit("message", error.details[0].message);
+        return;
+      }
+      this.careerYears = parseInt(this.careerYears);
+      this.howManyJobs = parseInt(this.howManyJobs);
+      if (this.howManyJobs > 15) {
+        this.$emit("noLoading");
+        this.$emit("message", "Previous Number of Jobs Must be Less Than 15");
+        return;
+      }
+      this.setAdditionalDetails({
+        jobTitle: this.jobTitle,
+        lookingFor: this.lookingFor,
+        careerYears: this.careerYears,
+        industry: this.industry,
+        howManyJobs: this.howManyJobs,
+        briefSummary: this.briefSummary,
+      });
+      const results = await this.submitAdditionalInfo();
+      if (results) {
+        this.$emit("noLoading");
+        this.$emit("nextPage");
+        return;
+      }
+      this.$emit("message", "Something Went Wrong On Our End");
+      this.$emit("noLoading");
     },
   },
   mounted() {
@@ -117,14 +179,21 @@ export default {
     }
     input {
       width: 20em;
-      border-bottom: 1px solid $ResGreen;
+      border-bottom: 1px dotted $ResGreen;
       padding: 0 0.5em;
       &:focus {
         outline: none;
       }
     }
   }
-  .breif-summary {
+  .how-many-jobs,
+  .career-years {
+    @include flex(row, flex-start, center);
+    input {
+      width: 5em;
+    }
+  }
+  .brief-summary {
     width: 100%;
     height: auto;
     gap: 0.25em;

@@ -9,5 +9,6 @@ router.use(corsPolicy.corsMiddleware());
 router.use(apiKeyCheck.authenticateKey);
 
 router.post('/set_user_info', authenticate, userController.setUserInfo);
+router.post('/set_additional_info', authenticate, userController.setAdditionalInfo);
 
 module.exports = router;

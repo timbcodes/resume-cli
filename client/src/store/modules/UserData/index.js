@@ -16,10 +16,9 @@ export default {
         jobTitle: "",
         titleSearch: "",
         careerYears: "",
-        careerLevel: "",
         careerIndustry: "",
         previousJobs: "",
-        breifSummary: "",
+        briefSummary: "",
       },
     };
   },

@@ -6,7 +6,7 @@ export default {
     const response = await userDataCalls.submitUserDetails(data);
     return response;
   },
-  async sumbitAdditionalInfo({ getters }) {
+  async submitAdditionalInfo({ getters }) {
     const data = getters.getUserDetails;
     const response = await userDataCalls.sumbitAdditionalInfo(data);
     return response;
