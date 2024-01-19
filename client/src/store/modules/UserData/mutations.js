@@ -24,4 +24,7 @@ export default {
     state.userData.briefSummary = payload.briefSummary;
     console.log(state.userData);
   },
+  incrementJobNumber(state) {
+    state.buildJobHistory.jobNumber++;
+  },
 };

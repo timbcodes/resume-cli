@@ -19,7 +19,7 @@
           @nextPage="goToFields"
           @message="showMessage"
         />
-        <Fields
+        <JobDetails
           v-if="fields"
           @loading="showLoading"
           @noLoading="hideLoading"
@@ -29,10 +29,10 @@
       </div>
       <div class="resume-footer">
         <div class="resume-lower-input">
-          <p v-if="!loading && !message && (details || fields)">
+          <p v-if="!loading && !message && details">
             Fields with * must be completed
           </p>
-          <p v-if="!loading && !message && jobTitle">
+          <p v-if="!loading && !message && (jobTitle || fields)">
             All fields must be completed, hit <span>RETURN</span> to continue
             when done
           </p>
@@ -41,7 +41,8 @@
         </div>
         <div class="resume-menu-footer-container">
           <MainMenuFooter>
-            <ResumeFooterMenu />
+            <ResumeFooterMenu v-if="!fields" />
+            <ResumeFieldsMenu v-if="fields" />
           </MainMenuFooter>
         </div>
       </div>
@@ -51,18 +52,22 @@
 <script>
 import UserDetails from "@/components/MainResume/UI/UserDetails.vue";
 import JobTitle from "@/components/MainResume/JobTitle.vue";
+import JobDetails from "@/components/MainResume/JobDetails.vue";
 import LowerLoading from "@/components/UI/LowerLoading.vue";
 import LowerMessage from "@/components/UI/LowerMessage.vue";
 import ResumeFooterMenu from "@/components/MainResume/UI/ResumeFooterMenu.vue";
+import ResumeFieldsMenu from "@/components/MainResume/UI/ResumeFieldsMenu.vue";
 import MainMenuFooter from "@/components/MainMenu/UI/MainMenuFooter.vue";
 export default {
   name: "MainResume",
   components: {
     UserDetails,
+    JobDetails,
     JobTitle,
     LowerLoading,
     LowerMessage,
     ResumeFooterMenu,
+    ResumeFieldsMenu,
     MainMenuFooter,
   },
   data() {

@@ -1,6 +1,7 @@
 <template>
   <div>
     <p><span>RETURN</span> Submit</p>
+    <p><span>CTRL</span>+<span>V</span> Paste from Clipboard</p>
     <p><span>TAB</span>/<span>^TAB</span> Select/Cycle Fields</p>
     <p><span>F5</span> Main Menu</p>
   </div>

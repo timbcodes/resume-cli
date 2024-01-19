@@ -14,11 +14,15 @@ export default {
         state: "",
         postalCode: "",
         jobTitle: "",
-        titleSearch: "",
+        lookingFor: "",
         careerYears: "",
-        careerIndustry: "",
-        previousJobs: "",
+        industry: "",
+        howManyJobs: "",
         briefSummary: "",
+      },
+      buildJobHistory: {
+        jobNumber: 1,
+        jobs: [],
       },
     };
   },

@@ -5,4 +5,7 @@ export default {
   getPreviousJobs(state) {
     return state.userData.previousJobs;
   },
+  getJobNumber(state) {
+    return state.buildJobHistory.jobNumber;
+  },
 };

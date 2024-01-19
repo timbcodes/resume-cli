@@ -15,13 +15,18 @@
         <p>Email Address*:</p>
       </div>
       <div class="right-side">
-        <input type="text" v-model="firstName" ref="first" />
-        <input type="text" v-model="lastName" />
-        <input type="text" v-model="address" />
-        <input type="text" v-model="city" />
-        <input type="text" v-model="state" />
-        <input type="text" v-model="postalCode" />
-        <input type="text" v-model="phoneNumber" />
+        <input
+          type="text"
+          v-model="firstName"
+          ref="first"
+          @keyup.enter="nextPage"
+        />
+        <input type="text" v-model="lastName" @keyup.enter="nextPage" />
+        <input type="text" v-model="address" @keyup.enter="nextPage" />
+        <input type="text" v-model="city" @keyup.enter="nextPage" />
+        <input type="text" v-model="state" @keyup.enter="nextPage" />
+        <input type="text" v-model="postalCode" @keyup.enter="nextPage" />
+        <input type="text" v-model="phoneNumber" @keyup.enter="nextPage" />
         <input type="text" v-model="emailAddress" @keyup.enter="nextPage" />
       </div>
     </div>

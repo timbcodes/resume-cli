@@ -8,23 +8,48 @@
     <div class="job-container">
       <div class="title">
         <p>What is Your Current Job Title?..........................</p>
-        <input type="text" v-model="jobTitle" ref="jobTitle" />
+        <input
+          type="text"
+          v-model="jobTitle"
+          ref="jobTitle"
+          @keypress.enter="validateAndSubmit"
+        />
       </div>
       <div class="looking-for">
         <p>What Job Title Are You Looking For?......................</p>
-        <input type="text" v-model="lookingFor" ref="lookingFor" />
+        <input
+          type="text"
+          v-model="lookingFor"
+          ref="lookingFor"
+          @keypress.enter="validateAndSubmit"
+        />
       </div>
       <div class="industry">
         <p>What Industry Are You In?................................</p>
-        <input type="text" v-model="industry" ref="industry" />
+        <input
+          type="text"
+          v-model="industry"
+          ref="industry"
+          @keypress.enter="validateAndSubmit"
+        />
       </div>
       <div class="career-years">
         <p>How Many Years Have You Been in Your Career?.............</p>
-        <input type="text" v-model="careerYears" ref="careerYears" />
+        <input
+          type="text"
+          v-model="careerYears"
+          ref="careerYears"
+          @keypress.enter="validateAndSubmit"
+        />
       </div>
       <div class="how-many-jobs">
         <p>How Many Jobs do You Want to Include in Your Resume?.....</p>
-        <input type="text" v-model="howManyJobs" ref="howManyJobs" />
+        <input
+          type="text"
+          v-model="howManyJobs"
+          ref="howManyJobs"
+          @keypress.enter="validateAndSubmit"
+        />
       </div>
       <div class="brief-summary">
         <div class="text-area">

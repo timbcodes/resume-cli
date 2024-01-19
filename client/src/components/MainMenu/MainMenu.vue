@@ -3,17 +3,18 @@
     <div class="main-menu-container">
       <div class="center-section">
         <div class="left-section">
-          <p>1. Create New Main Resume</p>
+          <p>1. Create New Base Resume</p>
           <p>2. Edit User Details</p>
           <p>3. Edit Main Resume Details</p>
           <p>4. Download Main Resume</p>
           <p>5. Edit Generation Parameters</p>
         </div>
         <div class="right-section">
-          <p>6. Apply for Job</p>
+          <p>6. Generate Resume & Cover Letter</p>
           <p>7. Generate New Resume</p>
           <p>8. Generate New Cover Letter</p>
           <p>9. View All Created Jobs</p>
+          <p>10. User Settings</p>
         </div>
       </div>
     </div>

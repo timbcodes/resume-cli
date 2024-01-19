@@ -4,7 +4,7 @@
     <section>
       <ul>
         <li>
-          Create New Main Resume: Starts the process to create a new main
+          Create New Base Resume: Starts the process to create a new main
           resume. This is the resume that all of your generated resumes are
           based on.
         </li>
@@ -38,6 +38,10 @@
         </li>
         <li>
           View All Created Jobs: Review all job profiles you have created.
+        </li>
+        <li>
+          User Settings: Change your password, delete your data, or delete your
+          account.
         </li>
       </ul>
     </section>
