@@ -32,6 +32,22 @@ const userController = {
       responseUtils.sendErrorResponse({res, responseBody: error});
     }
   },
+  async setJobHistory (req, res) {
+    try {
+      const {id} = req.user;
+      const data = req.body
+      console.log("setJobHistory: data = ", data);
+      const user = await $SQLUser.setJobHistory(id, data);
+      if (user) {
+        responseUtils.sendResponse({res, responseBody: user});
+      } else {
+        responseUtils.sendNotFound({res, statusCode: 401, responseBody: {message: 'Unauthorized'}});
+      }
+    } catch (error) {
+      console.log("setJobHistory: error = ", error);
+      responseUtils.sendErrorResponse({res, responseBody: error});
+    }
+  },
 };
 
 module.exports = userController;

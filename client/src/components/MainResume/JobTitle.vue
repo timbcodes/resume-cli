@@ -132,7 +132,6 @@ export default {
     },
     async validateAndSubmit() {
       this.$emit("loading");
-      console.log(this.briefSummary);
       const { error } = this.validationSchema.validate({
         jobTitle: this.jobTitle,
         lookingFor: this.lookingFor,

@@ -11,4 +11,9 @@ export default {
     const response = await userDataCalls.sumbitAdditionalInfo(data);
     return response;
   },
+  async submitJobHistory({ getters }) {
+    const data = getters.getJobHistory;
+    const response = await userDataCalls.submitJobHistory(data);
+    return response;
+  },
 };

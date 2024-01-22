@@ -21,4 +21,14 @@ export default {
     );
     return response;
   },
+  async submitJobHistory(payload) {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_job_history",
+      "post",
+      true,
+      payload
+    );
+    return response;
+  },
 };

@@ -6,7 +6,7 @@
           <p v-if="currentJobNumber == 1 ? true : false">
             Enter the Details from Your Most Recent Job
           </p>
-          <p v-else>Enter the Details from Your Next Most Recent Job</p>
+          <p v-else>Enter the Details Job Number {{ currentJobNumber }}</p>
         </div>
         <div class="job-info-section">
           <p>Company Information:</p>
@@ -79,11 +79,7 @@
             >Enter the details of this job in paragraph or bullet format. Use
             "-" hyphens for bullet points</label
           >
-          <textarea
-            id="job-description"
-            v-model="jobDescription"
-            @keyup.enter.prevent="submitJobDetails"
-          ></textarea>
+          <textarea id="job-description" v-model="jobDescription"></textarea>
         </div>
         <div class="skills-used">
           <label for="skills-used"
@@ -100,11 +96,14 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import joi from "joi";
+import { v4 as uuidv4 } from "uuid";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "JobDetails",
   data() {
     return {
+      jobId: "",
       companyName: "",
       jobCity: "",
       jobState: "",
@@ -116,13 +115,96 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getJobNumber"]),
+    ...mapGetters(["getJobNumber", "anyMoreJobs"]),
     currentJobNumber() {
       return this.getJobNumber;
     },
+    validationSchema() {
+      return joi.object({
+        companyName: joi.string().max(511).required().messages({
+          "string.empty": `Company Name is required`,
+        }),
+        jobCity: joi.string().max(511).required().messages({
+          "string.empty": `Job City is required`,
+        }),
+        jobState: joi.string().max(511).required().messages({
+          "string.empty": `Job State is required`,
+        }),
+        jobTitle: joi.string().max(511).required().messages({
+          "string.empty": `Job Title is required`,
+        }),
+        startDate: joi.string().max(511).required().messages({
+          "string.empty": `Start Date is required`,
+        }),
+        endDate: joi.string().max(511).required().messages({
+          "string.empty": `End Date is required`,
+        }),
+        jobDescription: joi.string().max(511).required().messages({
+          "string.empty": `Job Description is required`,
+        }),
+        skillsUsed: joi.string().max(511).required().messages({
+          "string.empty": `Skills Used is required`,
+        }),
+      });
+    },
+    nextJob() {
+      return this.anyMoreJobs;
+    },
+  },
+  methods: {
+    ...mapMutations(["incrementJobNumber", "addJobDetails"]),
+    ...mapActions(["submitJobHistory"]),
+    async submitJobDetails() {
+      this.$emit("loading");
+      const jobDetails = {
+        companyName: this.companyName,
+        jobCity: this.jobCity,
+        jobState: this.jobState,
+        jobTitle: this.jobTitle,
+        startDate: this.startDate,
+        endDate: this.endDate,
+        jobDescription: this.jobDescription,
+        skillsUsed: this.skillsUsed,
+      };
+      const { error } = this.validationSchema.validate(jobDetails);
+      if (error) {
+        this.$emit("noLoading");
+        this.$emit("message", error.details[0].message);
+        return;
+      }
+      this.$store.commit("addJobDetails", jobDetails);
+      this.$store.commit("incrementJobNumber");
+      if (this.nextJob) {
+        this.$emit("noLoading");
+        this.$nextTick(() => {
+          this.companyName = "";
+          this.jobCity = "";
+          this.jobState = "";
+          this.jobTitle = "";
+          this.startDate = "";
+          this.endDate = "";
+          this.jobDescription = "";
+          this.skillsUsed = "";
+          this.$refs.companyName.focus();
+        });
+      } else {
+        try {
+          await this.submitJobHistory(this.$store.state.jobHistory);
+          this.$emit("noLoading");
+          this.$emit("nextPage");
+        } catch (error) {
+          this.$emit("noLoading");
+          this.$emit("message", "Something went wrong, please try again");
+          return;
+        }
+      }
+    },
   },
   mounted() {
-    this.$refs.companyName.focus();
+    this.jobId = uuidv4();
+    this.$nextTick(() => {
+      this.$refs.companyName.focus();
+    });
   },
 };
 </script>

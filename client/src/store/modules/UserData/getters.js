@@ -8,4 +8,13 @@ export default {
   getJobNumber(state) {
     return state.buildJobHistory.jobNumber;
   },
+  getJobHistory(state) {
+    return state.buildJobHistory.jobs;
+  },
+  anyMoreJobs(state) {
+    if (state.buildJobHistory.jobNumber <= state.userData.howManyJobs) {
+      return true;
+    }
+    return false;
+  },
 };

@@ -21,6 +21,16 @@ const $SQLUser = {
       throw error;
     }
   },
+  async setJobHistory (id, data) {
+    try {
+      const query = 'INSERT INTO jobs (user_id, job_desc) VALUES (?, ?)';
+      const result = await executeQuery(query, [id, data]);
+      return result;
+    } catch (error) {
+      console.log("setJobHistory: error = ", error);
+      throw error;
+    }
+  },
 };
 
 module.exports = $SQLUser;

@@ -38,7 +38,6 @@ export default {
       try {
         const results = await this.loginUser(data);
         if (results.status === 200) {
-          console.log(results.data.response);
           localStorage.setItem("jwtToken", results.data.token);
           this.setUserData(results.data.response);
           this.$router.go();

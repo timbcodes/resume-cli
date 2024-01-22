@@ -10,5 +10,6 @@ router.use(apiKeyCheck.authenticateKey);
 
 router.post('/set_user_info', authenticate, userController.setUserInfo);
 router.post('/set_additional_info', authenticate, userController.setAdditionalInfo);
+router.post('/set_job_history', authenticate, userController.setJobHistory);
 
 module.exports = router;

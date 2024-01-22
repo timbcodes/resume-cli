@@ -75,6 +75,7 @@ export default {
       details: false,
       jobTitle: false,
       fields: true,
+      links: false,
       message: false,
       messageContent: "",
       loading: false,
@@ -85,11 +86,19 @@ export default {
       this.fields = false;
       this.details = false;
       this.jobTitle = true;
+      this.links = false;
     },
     goToFields() {
       this.fields = true;
       this.details = false;
       this.jobTitle = false;
+      this.links = false;
+    },
+    goToLinks() {
+      this.fields = false;
+      this.details = false;
+      this.jobTitle = false;
+      this.links = true;
     },
     showLoading() {
       this.loading = true;
