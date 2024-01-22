@@ -6,7 +6,7 @@ const $SQLSignupOperations = {
       email,
       password,
     } = data;
-    const query = 'INSERT INTO users (email, password, username) VALUES (?, ?)';
+    const query = 'INSERT INTO users (email, password) VALUES (?, ?)';
     const results = await executeQuery(query, [email, password]);
     return {
       user: results,
