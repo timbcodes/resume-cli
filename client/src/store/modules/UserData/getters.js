@@ -17,4 +17,7 @@ export default {
     }
     return false;
   },
+  getLinks(state) {
+    return state.buildJobHistory.links;
+  },
 };

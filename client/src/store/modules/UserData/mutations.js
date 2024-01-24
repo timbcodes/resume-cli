@@ -27,4 +27,7 @@ export default {
   addJobDetails(state, payload) {
     state.buildJobHistory.jobs.push(payload);
   },
+  addLinkDetails(state, payload) {
+    state.buildJobHistory.links = payload;
+  },
 };

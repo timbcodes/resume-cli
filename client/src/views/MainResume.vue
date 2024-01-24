@@ -26,6 +26,13 @@
           @nextPage="goToLinks"
           @message="showMessage"
         />
+        <JobLinks
+          v-if="links"
+          @loading="showLoading"
+          @noLoading="hideLoading"
+          @nextPage="goToSkills"
+          @message="showMessage"
+        />
       </div>
       <div class="resume-footer">
         <div class="resume-lower-input">
@@ -53,6 +60,7 @@
 import UserDetails from "@/components/MainResume/UI/UserDetails.vue";
 import JobTitle from "@/components/MainResume/JobTitle.vue";
 import JobDetails from "@/components/MainResume/JobDetails.vue";
+import JobLinks from "@/components/MainResume/JobLinks.vue";
 import LowerLoading from "@/components/UI/LowerLoading.vue";
 import LowerMessage from "@/components/UI/LowerMessage.vue";
 import ResumeFooterMenu from "@/components/MainResume/UI/ResumeFooterMenu.vue";
@@ -64,6 +72,7 @@ export default {
     UserDetails,
     JobDetails,
     JobTitle,
+    JobLinks,
     LowerLoading,
     LowerMessage,
     ResumeFooterMenu,
@@ -74,8 +83,9 @@ export default {
     return {
       details: false,
       jobTitle: false,
-      fields: true,
-      links: false,
+      fields: false,
+      links: true,
+      skills: false,
       message: false,
       messageContent: "",
       loading: false,
@@ -83,22 +93,32 @@ export default {
   },
   methods: {
     goToJobTitle() {
+      this.skills = false;
       this.fields = false;
       this.details = false;
       this.jobTitle = true;
       this.links = false;
     },
     goToFields() {
+      this.skills = false;
       this.fields = true;
       this.details = false;
       this.jobTitle = false;
       this.links = false;
     },
     goToLinks() {
+      this.skills = false;
       this.fields = false;
       this.details = false;
       this.jobTitle = false;
       this.links = true;
+    },
+    goToSkills() {
+      this.fields = false;
+      this.details = false;
+      this.jobTitle = false;
+      this.links = false;
+      this.skills = true;
     },
     showLoading() {
       this.loading = true;

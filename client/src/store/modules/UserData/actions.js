@@ -16,4 +16,9 @@ export default {
     const response = await userDataCalls.submitJobHistory(data);
     return response;
   },
+  async submitLinks({ getters }) {
+    const data = getters.getLinks;
+    const response = await userDataCalls.submitLinks(data);
+    return response;
+  },
 };

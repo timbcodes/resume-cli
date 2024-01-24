@@ -23,6 +23,7 @@ export default {
       buildJobHistory: {
         jobNumber: 1,
         jobs: [],
+        links: null,
       },
     };
   },

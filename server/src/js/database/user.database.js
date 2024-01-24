@@ -31,6 +31,16 @@ const $SQLUser = {
       throw error;
     }
   },
+  async setLinks (id, data) {
+    try {
+      const query = 'UPDATE jobs SET links = ? WHERE user_id = ?';
+      const result = await executeQuery(query, [id, data]);
+      return result;
+    } catch (error) {
+      console.log("setLinks: error = ", error);
+      throw error;
+    }
+  },
 };
 
 module.exports = $SQLUser;

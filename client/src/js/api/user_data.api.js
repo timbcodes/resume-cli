@@ -31,4 +31,14 @@ export default {
     );
     return response;
   },
+  async submitLinks(payload) {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_links",
+      "post",
+      true,
+      payload
+    );
+    return response;
+  },
 };
