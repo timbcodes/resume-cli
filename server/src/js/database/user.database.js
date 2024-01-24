@@ -34,7 +34,7 @@ const $SQLUser = {
   async setLinks (id, data) {
     try {
       const query = 'UPDATE jobs SET links = ? WHERE user_id = ?';
-      const result = await executeQuery(query, [id, data]);
+      const result = await executeQuery(query, [data, id]);
       return result;
     } catch (error) {
       console.log("setLinks: error = ", error);

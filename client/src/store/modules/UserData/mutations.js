@@ -29,5 +29,6 @@ export default {
   },
   addLinkDetails(state, payload) {
     state.buildJobHistory.links = payload;
+    console.log(state.buildJobHistory.links);
   },
 };

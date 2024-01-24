@@ -18,6 +18,7 @@ export default {
   },
   async submitLinks({ getters }) {
     const data = getters.getLinks;
+    console.log(data, "data");
     const response = await userDataCalls.submitLinks(data);
     return response;
   },

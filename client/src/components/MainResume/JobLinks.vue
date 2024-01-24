@@ -34,14 +34,14 @@
                 :id="'link-' + index"
                 ref="linkFields"
                 v-model="links[index]"
-                @keyup.enter="submitLinks"
+                @keyup.enter="submitLinkArray"
               />
               <p>:</p>
               <input
                 type="text"
                 :id="'link-name-' + index"
                 v-model="linkNames[index]"
-                @keyup.enter="submitLinks"
+                @keyup.enter="submitLinkArray"
               />
             </div>
           </div>
@@ -60,11 +60,11 @@ export default {
       linkNumber: "",
       links: [],
       linkNames: [],
-      linkObject: {},
+      linkArray: [],
     };
   },
   methods: {
-    ...mapMutations(["addLinks"]),
+    ...mapMutations(["addLinkDetails"]),
     ...mapActions(["submitLinks"]),
     submitLinkNumber() {
       if (this.linkNumber > 5) {
@@ -80,12 +80,16 @@ export default {
         });
       }
     },
-    async submitLinks() {
+    async submitLinkArray() {
       this.$emit("loading");
       for (let i = 1; i < this.links.length; i++) {
-        this.linkObject[this.linkNames[i]] = this.links[i];
+        this.linkArray.push({
+          link: this.links[i],
+          linkName: this.linkNames[i],
+        });
       }
-      this.addLinks(this.linkObject);
+      console.log(this.linkArray);
+      this.addLinkDetails(this.linkArray);
       await this.submitLinks();
       this.$emit("noLoading");
       this.$emit("nextPage");
