@@ -29,6 +29,11 @@ export default {
   },
   addLinkDetails(state, payload) {
     state.buildJobHistory.links = payload;
-    console.log(state.buildJobHistory.links);
+  },
+  addSkillDetails(state, payload) {
+    state.buildJobHistory.skills = payload;
+  },
+  addEducationDetails(state, payload) {
+    state.buildJobHistory.education = payload;
   },
 };

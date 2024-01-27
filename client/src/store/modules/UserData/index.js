@@ -24,6 +24,8 @@ export default {
         jobNumber: 1,
         jobs: [],
         links: null,
+        skills: null,
+        education: null,
       },
     };
   },

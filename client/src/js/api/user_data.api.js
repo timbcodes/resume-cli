@@ -41,4 +41,24 @@ export default {
     );
     return response;
   },
+  async submitSkills(payload) {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_skills",
+      "post",
+      true,
+      payload
+    );
+    return response;
+  },
+  async submitEducation(payload) {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_education",
+      "post",
+      true,
+      payload
+    );
+    return response;
+  },
 };

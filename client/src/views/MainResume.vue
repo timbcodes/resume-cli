@@ -33,6 +33,27 @@
           @nextPage="goToSkills"
           @message="showMessage"
         />
+        <UserSkills
+          v-if="skills"
+          @loading="showLoading"
+          @noLoading="hideLoading"
+          @nextPage="goToEducation"
+          @message="showMessage"
+        />
+        <UserEducation
+          v-if="education"
+          @loading="showLoading"
+          @noLoading="hideLoading"
+          @nextPage="goToPreview"
+          @message="showMessage"
+        />
+        <ResPreview
+          v-if="preview"
+          @loading="showLoading"
+          @noLoading="hideLoading"
+          @nextPage="goToMenu"
+          @message="showMessage"
+        />
       </div>
       <div class="resume-footer">
         <div class="resume-lower-input">
@@ -61,6 +82,9 @@ import UserDetails from "@/components/MainResume/UI/UserDetails.vue";
 import JobTitle from "@/components/MainResume/JobTitle.vue";
 import JobDetails from "@/components/MainResume/JobDetails.vue";
 import JobLinks from "@/components/MainResume/JobLinks.vue";
+import UserSkills from "@/components/MainResume/UserSkills.vue";
+import UserEducation from "@/components/MainResume/UserEducation.vue";
+import ResPreview from "@/components/MainResume/ResPreview.vue";
 import LowerLoading from "@/components/UI/LowerLoading.vue";
 import LowerMessage from "@/components/UI/LowerMessage.vue";
 import ResumeFooterMenu from "@/components/MainResume/UI/ResumeFooterMenu.vue";
@@ -73,6 +97,9 @@ export default {
     JobDetails,
     JobTitle,
     JobLinks,
+    UserSkills,
+    UserEducation,
+    ResPreview,
     LowerLoading,
     LowerMessage,
     ResumeFooterMenu,
@@ -84,8 +111,10 @@ export default {
       details: false,
       jobTitle: false,
       fields: false,
-      links: true,
+      links: false,
       skills: false,
+      education: false,
+      preview: true,
       message: false,
       messageContent: "",
       loading: false,
@@ -98,6 +127,8 @@ export default {
       this.details = false;
       this.jobTitle = true;
       this.links = false;
+      this.preview = false;
+      this.education = false;
     },
     goToFields() {
       this.skills = false;
@@ -105,6 +136,8 @@ export default {
       this.details = false;
       this.jobTitle = false;
       this.links = false;
+      this.preview = false;
+      this.education = false;
     },
     goToLinks() {
       this.skills = false;
@@ -112,6 +145,8 @@ export default {
       this.details = false;
       this.jobTitle = false;
       this.links = true;
+      this.preview = false;
+      this.education = false;
     },
     goToSkills() {
       this.fields = false;
@@ -119,6 +154,29 @@ export default {
       this.jobTitle = false;
       this.links = false;
       this.skills = true;
+      this.preview = false;
+      this.education = false;
+    },
+    goToEducation() {
+      this.fields = false;
+      this.details = false;
+      this.jobTitle = false;
+      this.links = false;
+      this.skills = false;
+      this.education = true;
+      this.preview = false;
+    },
+    goToPreview() {
+      this.fields = false;
+      this.details = false;
+      this.jobTitle = false;
+      this.links = false;
+      this.skills = false;
+      this.preview = true;
+      this.education = false;
+    },
+    goToMenu() {
+      this.$router.push("/");
     },
     showLoading() {
       this.loading = true;

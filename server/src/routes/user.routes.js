@@ -12,5 +12,11 @@ router.post('/set_user_info', authenticate, userController.setUserInfo);
 router.post('/set_additional_info', authenticate, userController.setAdditionalInfo);
 router.post('/set_job_history', authenticate, userController.setJobHistory);
 router.post('/set_links', authenticate, userController.setLinks);
+router.post('/set_skills', authenticate, userController.setSkills);
+router.post('/set_education', authenticate, userController.setEducation);
+
+router.get('/resume_exists', authenticate, userController.resumeExists);
+router.get('/get_user_info', authenticate, userController.getUserInfo);
+router.get('/get_user_resume', authenticate, userController.getUserResume);
 
 module.exports = router;

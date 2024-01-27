@@ -20,4 +20,10 @@ export default {
   getLinks(state) {
     return state.buildJobHistory.links;
   },
+  getSkills(state) {
+    return state.buildJobHistory.skills;
+  },
+  getEducation(state) {
+    return state.buildJobHistory.education;
+  },
 };

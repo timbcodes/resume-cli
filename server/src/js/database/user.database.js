@@ -41,6 +41,56 @@ const $SQLUser = {
       throw error;
     }
   },
+  async setSkills (id, data) {
+    try {
+      const query = 'UPDATE jobs SET skills = ? WHERE user_id = ?';
+      const result = await executeQuery(query, [data, id]);
+      return result;
+    } catch (error) {
+      console.log("setSkills: error = ", error);
+      throw error;
+    }
+  },
+  async setEducation (id, data) {
+    try {
+      const query = 'UPDATE jobs SET education = ? WHERE user_id = ?';
+      const result = await executeQuery(query, [data, id]);
+      return result;
+    } catch (error) {
+      console.log("setEducation: error = ", error);
+      throw error;
+    }
+  },
+  async resumeExists (id) {
+    try {
+      const query = 'SELECT id FROM jobs WHERE user_id = ?';
+      const result = await executeQuery(query, [id]);
+      return result;
+    } catch (error) {
+      console.log("resumeExists: error = ", error);
+      throw error;
+    }
+  },
+  async getUserInfo (id) {
+    try {
+      const query = 'SELECT * FROM user_details WHERE user_id = ?';
+      const result = await executeQuery(query, [id]);
+      return result;
+    } catch (error) {
+      console.log("getUserInfo: error = ", error);
+      throw error;
+    }
+  },
+  async getUserResume (id) {
+    try {
+      const query = 'SELECT * FROM jobs WHERE user_id = ?';
+      const result = await executeQuery(query, [id]);
+      return result;
+    } catch (error) {
+      console.log("getUserResume: error = ", error);
+      throw error;
+    }
+  }
 };
 
 module.exports = $SQLUser;

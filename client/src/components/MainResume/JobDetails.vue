@@ -272,6 +272,10 @@ export default {
         height: 10em;
         border: 1px solid $ResGreen;
       }
+      textarea::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+      }
     }
     .skills-used {
       textarea {

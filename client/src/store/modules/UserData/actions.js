@@ -18,8 +18,17 @@ export default {
   },
   async submitLinks({ getters }) {
     const data = getters.getLinks;
-    console.log(data, "data");
     const response = await userDataCalls.submitLinks(data);
+    return response;
+  },
+  async submitSkills({ getters }) {
+    const data = getters.getSkills;
+    const response = await userDataCalls.submitSkills(data);
+    return response;
+  },
+  async submitEducation({ getters }) {
+    const data = getters.getEducation;
+    const response = await userDataCalls.submitEducation(data);
     return response;
   },
 };
