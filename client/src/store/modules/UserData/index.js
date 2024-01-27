@@ -27,6 +27,8 @@ export default {
         skills: null,
         education: null,
       },
+      returnedUser: null,
+      returnedResume: null,
       generatedResume: null,
       gereatedCoverLetter: null,
     };

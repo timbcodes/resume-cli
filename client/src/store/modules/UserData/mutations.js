@@ -36,4 +36,16 @@ export default {
   addEducationDetails(state, payload) {
     state.buildJobHistory.education = payload;
   },
+  setReturnedUser(state, payload) {
+    state.returnedUser = payload;
+  },
+  setReturnedResume(state, payload) {
+    state.returnedResume = payload;
+  },
+  setGeneratedResume(state, payload) {
+    state.generatedResume = payload;
+  },
+  setGeneratedCoverLetter(state, payload) {
+    state.generatedCoverLetter = payload;
+  },
 };

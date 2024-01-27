@@ -26,4 +26,16 @@ export default {
   getEducation(state) {
     return state.buildJobHistory.education;
   },
+  getReturnedUser(state) {
+    return state.returnedUser;
+  },
+  getReturnedResume(state) {
+    return state.returnedResume;
+  },
+  getGeneratedResume(state) {
+    return state.generatedResume;
+  },
+  getGeneratedCoverLetter(state) {
+    return state.generatedCoverLetter;
+  },
 };
