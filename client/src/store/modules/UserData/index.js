@@ -27,6 +27,8 @@ export default {
         skills: null,
         education: null,
       },
+      generatedResume: null,
+      gereatedCoverLetter: null,
     };
   },
   actions: userDataActions,
