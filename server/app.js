@@ -3,6 +3,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 require('dotenv').config();
 
+// API Version
+const version = process.env.API_VERSION;
+
 const indexRouter = require('./src/routes/index');
 const loginRouter = require('./src/routes/login.routes');
 const signupRouter = require('./src/routes/signup.routes');
@@ -17,10 +20,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/v1/', indexRouter);
-app.use('/v1/login', loginRouter);
-app.use('/v1/signup', signupRouter);
-app.use('/v1/security', securityRouter);
-app.use('/v1/users', userRouter);
+app.use(`/${version}/`, indexRouter);
+app.use(`/${version}/login`, loginRouter);
+app.use(`/${version}/signup`, signupRouter);
+app.use(`/${version}/security`, securityRouter);
+app.use(`/${version}/users`, userRouter);
 
 module.exports = app;
