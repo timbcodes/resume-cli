@@ -1,6 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import LandingPage from '@/views/LandingPage'
 
-const routes = []
+const routes = [
+  {
+    path: '/',
+    name: 'LandingPage',
+    component: LandingPage
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

@@ -1,6 +1,12 @@
 // SCSS Variables
 // make the main font monospace
-$mainFont : monospace;
-$ResGreen: #00ff00;
-$ResWhite: #fff;
-$ResBlack: #000;
+$mainFont: 'Barlow', sans-serif;
+$secondaryFont: 'Oswald', sans-serif;
+$ResPurple: #b10dc9;
+$ResWhite: #F7F7F3;
+$ResGrey: #211F1C;
+$ResSmoke: #131112;
+$ResBlack: #0B0909;
+$ResOffWhite: rgba(247, 247, 243, 0.5);
+$ResBorder: rgba(247, 247, 243, 0.25);
+

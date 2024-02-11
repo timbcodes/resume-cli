@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&family=Oswald:wght@200;300;400;500;600&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
 @import "variables";
 @import "mixins";
 @import "variables";
@@ -5,46 +7,46 @@
 // Universal Styles
 * {
   box-sizing: border-box;
+  font-size: 16px;
 }
 html,
 body {
-  pointer-events: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  overflow: hidden;
   height: 100vh;
   width: 100%;
   margin: 0;
   padding: 0;
-  user-select: none;
   font-family: "Barlow", monospace, sans-serif;
-  font-size: 14px;
   background-color: $ResBlack;
-  color: $ResGreen;
+  color: $ResWhite;
   line-height: 1;
 }
-input,
-select,
-textarea,
-button {
-  background-color: $ResBlack;
-  color: $ResGreen;
-  width: auto;
-  outline: none;
-  cursor: text;
-  caret-color: $ResGreen;
-  border: none;
+a {
+  text-decoration: none;
+  color: $ResPurple;
 }
-input[type="text"] {
-  size: auto; // grow with text
+
+// These rules will grant scrollbars to the main content and change their color/style/etc.
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 5px;
 }
-textarea {
-  width: auto; // grow with text horizontally
-  height: auto; // grow with text vertically
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
-::selection {
-  background: $ResGreen;
-  color: $ResBlack;
+::-webkit-scrollbar-thumb {
+  background-color: $ResPurple;
+  border-radius: 10px;
+  height: 50px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+// These rules will change the color of the autocomplete fields
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px $ResSmoke inset !important;
+    -webkit-text-fill-color: $ResWhite !important;
 }
