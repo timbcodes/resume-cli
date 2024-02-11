@@ -2,8 +2,8 @@
   <div class="main-landing-container">
     <div class="left-side">
       <div class="video-container">
-        <video ref="myVideo" preload="auto" autoplay loop muted>
-          <source src="@/assets/introvideo.mp4" type="video/mp4" />
+        <video ref="myVideo" preload="auto" autoplay muted>
+          <source :src="videos[currentVideoIndex]" type="video/mp4" />
         </video>
       </div>
     </div>
@@ -12,11 +12,6 @@
         <div class="logo">
           <span>Tresume.</span>
           <span id="co">co</span>
-        </div>
-        <div class="menu">
-            <span>Get Started</span>
-            <span>Learn More</span>
-            <span>Sign In</span>
         </div>
       </div>
       <div class="main-content">
@@ -39,12 +34,23 @@ export default {
   },
   data() {
     return {
-      video: null,
+      videos: [
+        require('@/assets/introvideo.mp4'),
+        require('@/assets/introvideo2.mp4'),
+        require('@/assets/introvideo3.mp4'),
+      ],
+      currentVideoIndex: 0,
     };
   },
   mounted() {
-    this.video = this.$refs.myVideo;
-    this.video.play();
+    this.$refs.myVideo.addEventListener("ended", this.nextVideo);
+  },
+  methods: {
+    nextVideo() {
+      this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videos.length;
+      this.$refs.myVideo.src = this.videos[this.currentVideoIndex];
+      this.$refs.myVideo.play();
+    },
   },
 }
 </script>
@@ -84,18 +90,6 @@ export default {
         }
         #co {
           color: $ResPurple !important;
-        }
-      }
-      .menu {
-        padding-right: 20px;
-        animation: fadeInDown;
-        animation-duration: 0.5s;
-        span {
-          padding: 0 1em;
-          cursor: pointer;
-          &:hover {
-            color: $ResPurple;
-          }
         }
       }
     }

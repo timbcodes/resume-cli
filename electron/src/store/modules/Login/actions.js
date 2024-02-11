@@ -5,11 +5,8 @@ export default {
     return await signupCalls.loginUser(payload);
   },
   logoutUser() {
-    // remove token from local storage
     localStorage.removeItem("jwtToken");
-    // remove auth header for future requests
     delete axios.defaults.headers.common["Authorization"];
-    // delete all of local storage
     localStorage.clear();
   },
 };

@@ -14,4 +14,14 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach(async (to, _, next) => {
+  const isAuthenticated = localStorage.getItem('jwtToken') !== null
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next({ name: 'LandingPage' })
+  } else {
+    next()
+  }
+})
+
 export default router
