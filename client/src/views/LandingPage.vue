@@ -13,9 +13,18 @@
           <span>Tresume.</span>
           <span id="co">co</span>
         </div>
+        <div class="menu-items">
+          <ul>
+            <li>Learn More</li>
+            <li>Pricing</li>
+            <li>Support</li>
+            <li>Login</li>
+          </ul>
+        </div>
       </div>
       <div class="main-content">
-        <MainContent />
+        <MainContent v-if="!isModalOpen" />
+        <UserAuthModal v-if="isModalOpen" />
       </div>
       <div class="bottom-footer">
         <div class="borderland-logo">
@@ -26,11 +35,14 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import MainContent from "@/components/LandingPage/MainContent.vue";
+import UserAuthModal from "@/components/LandingPage/UserAuthModal.vue";
 export default {
   name: "LandingPage",
   components: {
     MainContent,
+    UserAuthModal,
   },
   data() {
     return {
@@ -42,8 +54,11 @@ export default {
       currentVideoIndex: 0,
     };
   },
-  mounted() {
-    this.$refs.myVideo.addEventListener("ended", this.nextVideo);
+  computed: {
+    ...mapGetters(["getUserAuthModalState"]),
+    isModalOpen() {
+      return this.getUserAuthModalState;
+    },
   },
   methods: {
     nextVideo() {
@@ -51,6 +66,9 @@ export default {
       this.$refs.myVideo.src = this.videos[this.currentVideoIndex];
       this.$refs.myVideo.play();
     },
+  },
+  mounted() {
+    this.$refs.myVideo.addEventListener("ended", this.nextVideo);
   },
 }
 </script>
@@ -90,6 +108,20 @@ export default {
         }
         #co {
           color: $ResPurple !important;
+        }
+      }
+      .menu-items {
+        ul {
+          display: flex;
+          list-style: none;
+          li {
+            padding: 0 20px;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            &:hover {
+              color: $ResPurple;
+            }
+          }
         }
       }
     }

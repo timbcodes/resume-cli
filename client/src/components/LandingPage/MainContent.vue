@@ -11,9 +11,13 @@
     <div class="button-container">
       <LoginSignupButtons />
     </div>
+    <div class="call-to-action">
+      <p>Click <span @click="openSignup">Get Started</span> to Create a Free AI Resume, No Credit Card Required</p>
+    </div>
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 import LoginSignupButtons from "@/components/LandingPage/UI/LoginSignupButtons";
 export default {
   name: "MainContent",
@@ -34,25 +38,30 @@ export default {
       currentTitle: 0,
     };
   },
-  mounted() {
-    this.cycleTitles();
-  },
-methods: {
+  methods: {
+    ...mapMutations(["setUserAuthModalState", "setUserSignupModalState"]),
+    openSignup() {
+      this.setUserAuthModalState(true);
+      this.setUserSignupModalState(true);
+    },
     cycleTitles() {
       setInterval(() => {
         if (this.currentTitle === this.titles.length - 1) {
           this.currentTitle = 0;
-        } else {
-          this.currentTitle++;
-        }
-        const titleElement = this.$el.querySelector('.animated-title'); 
-        if (titleElement) {
-          titleElement.style.animation = 'none';
-          titleElement.offsetHeight;
-          titleElement.style.animation = null;
-        }
-      }, 3000);
+          } else {
+            this.currentTitle++;
+          }
+          const titleElement = this.$el.querySelector('.animated-title'); 
+          if (titleElement) {
+            titleElement.style.animation = 'none';
+            titleElement.offsetHeight;
+            titleElement.style.animation = null;
+          }
+        }, 3000);
+      },
     },
+  mounted() {
+    this.cycleTitles();
   },
 };
 </script>
@@ -75,8 +84,19 @@ methods: {
       animation-duration: 2s;
     }
   }
-  .button-container {
+  .call-to-action {
     margin-top: 2em;
+    p {
+      font-size: 1em;
+      font-weight: bold;
+      span {
+        color: $ResPurple;
+        cursor: pointer;
+      }
+    }
+  }
+  .button-container {
+    margin-top: 1em;
   }
 }
 </style>

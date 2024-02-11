@@ -1,12 +1,40 @@
 <template>
   <div>
-    <button class="login-button">Login</button>
-    <button class="signup-button">Sign Up</button>
+    <button
+      v-for="button in buttons"
+      :key="button.text"
+      :class="button.class"
+      @click="openModal(button.text)"
+    >
+      {{ button.text }}
+    </button>
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 export default {
   name: "LoginSignupButtons",
+  data() {
+    return {
+      buttons: [
+        { text: "Get Started", class: "signup-button" },
+        { text: "Login", class: "login-button" }
+      ]
+    };
+  },
+  methods: {
+    ...mapMutations(["setUserAuthModalState", "setUserLoginModalState", "setUserSignupModalState"]),
+    openModal(text) {
+      this.setUserAuthModalState(true);
+      if (text === "Login") {
+        this.setUserLoginModalState(true);
+        this.setUserSignupModalState(false);
+      } else {
+        this.setUserLoginModalState(false);
+        this.setUserSignupModalState(true);
+      }
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
