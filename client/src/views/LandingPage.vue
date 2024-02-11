@@ -9,7 +9,7 @@
     </div>
     <div class="right-side">
       <div class="top-header">
-        <div class="logo">
+        <div class="logo" @click="goHome">
           <span>Tresume.</span>
           <span id="co">co</span>
         </div>
@@ -71,6 +71,9 @@ export default {
       this.$refs.myVideo.src = this.videos[this.currentVideoIndex];
       this.$refs.myVideo.play();
     },
+    goHome() {
+      this.$router.go();
+    },
   },
   mounted() {
     this.$refs.myVideo.addEventListener("ended", this.nextVideo);
@@ -107,6 +110,7 @@ export default {
         animation: fadeInDown;
         animation-duration: 0.5s;
         padding-left: 20px;
+        cursor: pointer;
         span {
           font-size: 1.25em;
           font-weight: 600;
