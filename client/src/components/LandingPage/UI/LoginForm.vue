@@ -1,10 +1,12 @@
 <template>
   <div>
+    <!-- prevent submit on click -->
     <form class="login-form">
-      <h2>Welcome Back!</h2>
-      <input type="text" placeholder="Email Address" />
-      <input type="password" placeholder="Password" />
-      <button>Login</button>
+      <h2 v-if="!error">Welcome Back!</h2>
+      <h2 v-if="error">Invalid Email or Password</h2>
+      <input type="text" ref="emailAddy" @keyup.prevent.enter="nextField" placeholder="Email Address" />
+      <input type="password" ref="password" @keyup.prevent.enter="loginUser" placeholder="Password" />
+      <button @click.prevent="loginUser">Login</button>
       <p>Don't have an account? <span>Sign Up</span></p>
       <p>Forgot your password? <span>Click Here</span></p>
     </form>
@@ -12,7 +14,23 @@
 </template>
 <script>
 export default {
-  name: "LoginForm"
+  name: "LoginForm",
+  data() {
+    return {
+      error: false,
+    };
+  },
+  methods: {
+    nextField() {
+      this.$refs.password.focus();
+    },
+    loginUser() {
+      console.log("login user");
+    },
+  },
+  mounted() {
+    this.$refs.emailAddy.focus();
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -21,6 +39,7 @@ export default {
 .login-form {
   @include flexCenterColumn;
   height: 100%;
+  width: 100%;
   h2 {
     margin-bottom: 20px;
   }
@@ -32,6 +51,9 @@ export default {
     border: none;
     border-radius: 5px;
     font-size: 1.2rem;
+    &:focus {
+      outline: 2px solid $ResPurple;
+    }
   }
   button {
     width: 150px;
@@ -54,6 +76,10 @@ export default {
     span {
       color: $ResPurple;
       font-weight: 600;
+      transition: all 0.1s ease;
+      &:hover {
+        color: $ResWhite;
+      }
     }
   }
 }

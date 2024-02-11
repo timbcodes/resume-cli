@@ -28,11 +28,11 @@ export default {
     return {
       titles: [
         "Doesn't Charge a Monthly Fee",
+        "Tailors Your Resume to the Job",
+        "Writes Flawless Cover Letters",
         "Answers Application Questions",
         "Keeps Up with Your Job Search",
-        "Writes Flawless Cover Letters",
         "Improves Your LinkedIn Profile",
-        "Tailors Your Resume to the Job",
         "Helps you Prepare for Interviews",
       ],
       currentTitle: 0,

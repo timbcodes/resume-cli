@@ -34,4 +34,8 @@ export default {
 <style lang="scss" scoped>
 @import "@/scss/mixins.scss";
 @import "@/scss/variables.scss";
+div {
+  height: 100%;
+  width: 100%;
+}
 </style>

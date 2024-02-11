@@ -18,7 +18,7 @@
             <li>Learn More</li>
             <li>Pricing</li>
             <li>Support</li>
-            <li>Login</li>
+            <li @click="openLogin">Login</li>
           </ul>
         </div>
       </div>
@@ -35,7 +35,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 import MainContent from "@/components/LandingPage/MainContent.vue";
 import UserAuthModal from "@/components/LandingPage/UserAuthModal.vue";
 export default {
@@ -61,6 +61,11 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(["setUserAuthModalState", "setUserLoginModalState"]),
+    openLogin() {
+      this.setUserAuthModalState(true);
+      this.setUserLoginModalState(true);
+    },
     nextVideo() {
       this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videos.length;
       this.$refs.myVideo.src = this.videos[this.currentVideoIndex];
