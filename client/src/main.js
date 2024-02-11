@@ -10,6 +10,7 @@ import "@/scss/normalize.scss";
 import "@/scss/UniversalStyles.scss";
 import "@/scss/mixins.scss";
 import "@/scss/variables.scss";
+import 'animate.css/animate.css';
 
 /**
  * Import Cookies Config Below

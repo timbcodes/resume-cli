@@ -10,25 +10,33 @@
     <div class="right-side">
       <div class="top-header">
         <div class="logo">
-          <span>
-            <span>Tresume.</span>
-            <span class="co">co</span>
-          </span>
-          </div>
+          <span>Tresume.</span>
+          <span id="co">co</span>
+        </div>
         <div class="menu">
             <span>Get Started</span>
             <span>Learn More</span>
             <span>Sign In</span>
         </div>
       </div>
-      <div class="main-content"></div>
-      <div class="bottom-footer"></div>
+      <div class="main-content">
+        <MainContent />
+      </div>
+      <div class="bottom-footer">
+        <div class="borderland-logo">
+          <img src="@/assets/borderland-logo.png" alt="borderland-logo" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import MainContent from "@/components/LandingPage/MainContent.vue";
 export default {
   name: "LandingPage",
+  components: {
+    MainContent,
+  },
   data() {
     return {
       video: null,
@@ -63,26 +71,47 @@ export default {
   .right-side {
     width: calc(100% - 590px);
     .top-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      height: 50px;
+      @include flex(row, space-between, center);
       padding: 1em 0;
       .logo {
-        font-size: 24px;
-        font-weight: 600;
+        animation: fadeInDown;
+        animation-duration: 0.5s;
         padding-left: 20px;
-        .co {
-          color: $ResPurple;
+        span {
+          font-size: 1.25em;
+          font-weight: 600;
+        }
+        #co {
+          color: $ResPurple !important;
         }
       }
       .menu {
         padding-right: 20px;
+        animation: fadeInDown;
+        animation-duration: 0.5s;
         span {
           padding: 0 1em;
           cursor: pointer;
           &:hover {
             color: $ResPurple;
           }
+        }
+      }
+    }
+    .main-content {
+      height: calc(100vh - 100px);
+      width: 100%;
+    }
+    .bottom-footer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      height: 50px;
+      .borderland-logo {
+        padding: 20px;
+        img {
+          width: 100px;
         }
       }
     }
