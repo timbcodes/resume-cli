@@ -10,7 +10,7 @@
     <div class="right-side">
       <div class="top-header">
         <div class="logo" @click="goHome">
-          <span>Tresume.</span>
+          <span>tresume.</span>
           <span id="co">co</span>
         </div>
         <div class="menu-items">

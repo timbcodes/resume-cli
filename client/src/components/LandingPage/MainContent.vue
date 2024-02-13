@@ -31,7 +31,7 @@ export default {
         "Tailors Your Resume to the Job",
         "Writes Flawless Cover Letters",
         "Answers Application Questions",
-        "Keeps Up with Your Job Search",
+        "Organizes Your Job Search",
         "Improves Your LinkedIn Profile",
         "Helps you Prepare for Interviews",
       ],

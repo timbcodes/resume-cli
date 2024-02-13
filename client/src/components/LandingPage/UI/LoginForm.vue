@@ -4,28 +4,41 @@
     <form class="login-form">
       <h2 v-if="!error">Welcome Back!</h2>
       <h2 v-if="error">Invalid Email or Password</h2>
-      <input type="text" ref="emailAddy" @keyup.prevent.enter="nextField" placeholder="Email Address" />
-      <input type="password" ref="password" @keyup.prevent.enter="loginUser" placeholder="Password" />
-      <button @click.prevent="loginUser">Login</button>
+      <input type="text" ref="emailAddy" v-model="email" @keyup.prevent.enter="nextField" placeholder="Email Address" />
+      <input type="password" ref="password" v-model="password" @keyup.prevent.enter="login" placeholder="Password" />
+      <button @click.prevent="login">Login</button>
       <p>Don't have an account? <span>Sign Up</span></p>
       <p>Forgot your password? <span>Click Here</span></p>
     </form>
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "LoginForm",
   data() {
     return {
+      email: "",
+      password: "",
       error: false,
     };
   },
   methods: {
+    ...mapActions(["loginUser"]),
     nextField() {
       this.$refs.password.focus();
     },
-    loginUser() {
-      console.log("login user");
+    async login() {
+      if (this.email === "" || this.password === "") {
+        this.error = true;
+      } else {
+        const res = await this.loginUser({ email: this.email, password: this.password });
+        if (res === "error") {
+          this.error = true;
+          return;
+        }
+        this.$router.push("/");
+      }
     },
   },
   mounted() {
