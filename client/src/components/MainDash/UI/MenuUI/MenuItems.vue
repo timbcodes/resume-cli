@@ -2,7 +2,7 @@
   <div class="menu-items">
     <div class="menu-section">
       <div class="first-section">
-        <div class="dashboard">
+        <div class="dashboard" :class="{'active-menu-item': currentPage === 'dashboard'}">
           <i class="bi bi-speedometer"></i>
           <span>Dashboard</span>
         </div>
@@ -71,13 +71,14 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "MenuItems",
-  data() {
-    return {
-      // data
-    };
+  computed: {
+    ...mapGetters(["getCurrentPage", "getUserAuthModalState"]),
+    currentPage() {
+      return this.getCurrentPage;
+    },
   },
   methods: {
     ...mapActions(["logoutUser"]),
@@ -86,12 +87,9 @@ export default {
       this.$router.go();
     }
   },
-  created() {
-    // created
+  beforeMount() {
+    this.getCurrentPage;
   },
-  mounted() {
-    // mounted
-  }
 };
 </script>
 <style lang="scss" scoped>
@@ -101,6 +99,13 @@ export default {
   @include flex(column, space-between, flex-start);
   width: 100%;
   height: 100%;
+  .active-menu-item {
+    background-color: $ResPurple;
+    color: $ResWhite;
+    i {
+      color: $ResWhite;
+    }
+  }
   .menu-section {
     @include flex(column, flex-start, center);
     width: 100%;

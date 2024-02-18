@@ -1,6 +1,6 @@
-// import appDataActions from "./actions";
-// import appDataMutations from "./mutations";
-// import appDataGetters from "./getters";
+import appDataActions from "./actions";
+import appDataMutations from "./mutations";
+import appDataGetters from "./getters";
 export default {
   state() {
     return {
@@ -9,7 +9,7 @@ export default {
       }
     };
   },
-  // actions: appDataActions,
-  // mutations: appDataMutations,
-  // getters: appDataGetters,
+  actions: appDataActions,
+  mutations: appDataMutations,
+  getters: appDataGetters,
 };
