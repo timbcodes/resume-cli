@@ -10,8 +10,7 @@
     <div class="right-side">
       <div class="top-header">
         <div class="logo" @click="goHome">
-          <span>tresume.</span>
-          <span id="co">co</span>
+          <MainLogo />
         </div>
         <div class="menu-items">
           <ul>
@@ -38,11 +37,13 @@
 import { mapMutations, mapGetters } from "vuex";
 import MainContent from "@/components/LandingPage/MainContent.vue";
 import UserAuthModal from "@/components/LandingPage/UserAuthModal.vue";
+import MainLogo from "@/components/UI/MainLogo.vue";
 export default {
   name: "LandingPage",
   components: {
     MainContent,
     UserAuthModal,
+    MainLogo,
   },
   data() {
     return {
@@ -109,7 +110,6 @@ export default {
       .logo {
         animation: fadeInDown;
         animation-duration: 0.5s;
-        padding-left: 20px;
         cursor: pointer;
         span {
           font-size: 1.25em;

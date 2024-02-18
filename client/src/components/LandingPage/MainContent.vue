@@ -1,7 +1,7 @@
 <template>
   <div class="title-container">
     <div class="title-section">
-      <div class="fixed-title">The AI Resume Software that:</div>
+      <div class="fixed-title">The Job Search Assistant that:</div>
       <div class="cycle-through-titles">
         <span class="animated-title"> 
           {{ titles[currentTitle] }} 
@@ -12,7 +12,7 @@
       <LoginSignupButtons />
     </div>
     <div class="call-to-action">
-      <p>Click <span @click="openSignup">Get Started</span> to Create a Free AI Resume, No Credit Card Required</p>
+      <p>Click <span @click="openSignup">Get Started</span> to Create Your Free AI Resume, No Credit Card Required</p>
     </div>
   </div>
 </template>
@@ -53,6 +53,7 @@ export default {
           }
           const titleElement = this.$el.querySelector('.animated-title'); 
           if (titleElement) {
+            // fade out, the fade in
             titleElement.style.animation = 'none';
             titleElement.offsetHeight;
             titleElement.style.animation = null;

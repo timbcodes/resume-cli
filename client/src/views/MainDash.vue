@@ -40,11 +40,11 @@ export default {
   width: 100%;
   height: 100%;
   .left-side-menu-container {
-    width: 250px;
+    width: 200px;
     height: 100%;
   }
   .right-side-content-container {
-    width: calc(100% - 250px);
+    width: calc(100% - 200px);
     height: 100%;
     @include flex(column, center, center);
     .top-bar {

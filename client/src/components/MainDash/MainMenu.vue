@@ -1,11 +1,9 @@
 <template>
   <div class="menu-container">
-    <div class="menu-size-toggle"></div>
-    <div class="profile-info">
-      <ProfileInfo />
-    </div>
-    <div class="control-buttons">
-      <ControlButtons />
+    <div class="tresume-logo-container">
+      <div class="logo">
+        <MainLogo />
+      </div>
     </div>
     <div class="menu-items">
       <MenuItems />
@@ -13,14 +11,14 @@
   </div>
 </template>
 <script>
+import MainLogo from "@/components/UI/MainLogo";
 import ProfileInfo from "@/components/MainDash/UI/MenuUI/ProfileInfo";
-import ControlButtons from "@/components/MainDash/UI/MenuUI/ControlButtons";
 import MenuItems from "@/components/MainDash/UI/MenuUI/MenuItems";
 export default {
   name: "MainMenu",
   components: {
+    MainLogo,
     ProfileInfo,
-    ControlButtons,
     MenuItems
   },
   data() {
@@ -47,19 +45,15 @@ export default {
   width: 100%;
   height: 100%;
   background-color: $ResSmoke;
-  gap: 1em;
-  .menu-size-toggle {
+  border-right: 1px solid $ResBorder;
+  overflow: hidden;
+  .tresume-logo-container {
     width: 100%;
-    height: 50px;
-  }
-  .profile-info {
-    width: 100%;
-  }
-  .control-buttons {
-    width: 100%;
-    height: 50px;
-  }
+    height: 100px;
+    padding-top: 1em;
+    }
   .menu-items {
+    height: 100%;
     width: 100%;
   }
 }
