@@ -10,6 +10,7 @@
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 import MainMenu from "@/components/MainDash/MainMenu";
 export default {
   name: "MainDash",
@@ -22,9 +23,13 @@ export default {
     };
   },
   methods: {
-    // methods
+    ...mapMutations(["setCurrentPage"]),
+    setPageToDashboard() {
+      this.setCurrentPage("dashboard");
+    }
   },
   created() {
+    this.setPageToDashboard();
     // When created, get the user data. If the userdata doesn't exist, run the new user setup wizard
   },
   mounted() {
