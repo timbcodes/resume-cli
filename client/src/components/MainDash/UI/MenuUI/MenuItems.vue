@@ -48,7 +48,14 @@
           <i class="bi bi-gear-fill"></i>
           <span>Generation Settings</span>
         </div>
-
+        <div class="credits">
+          <i class="bi bi-credit-card-fill"></i>
+          <span>Credits</span>
+        </div>
+        <div class="help-and-support">
+          <i class="bi bi-question-circle-fill"></i>
+          <span>Help & Support</span>
+        </div>
       </div>
     </div>
     <div class="bottom-section">
@@ -158,7 +165,9 @@ export default {
       @include flex(column, flex-start, center);
       width: 100%;
       .candidate-details,
-      .generation-settings {
+      .generation-settings,
+      .credits,
+      .help-and-support {
         @include flex(row, flex-start, center);
         width: 100%;
         padding: 1em;
