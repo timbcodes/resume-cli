@@ -5,7 +5,7 @@ export default {
   state() {
     return {
       appData: {
-        currentPage: "dashboard",
+        currentPage: "Dashboard",
       }
     };
   },

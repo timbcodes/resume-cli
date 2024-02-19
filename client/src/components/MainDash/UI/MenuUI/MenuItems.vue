@@ -2,7 +2,7 @@
   <div class="menu-items">
     <div class="menu-section">
       <div class="first-section">
-        <div class="dashboard" :class="{'active-menu-item': currentPage === 'dashboard'}">
+        <div class="dashboard" :class="{'active-menu-item': currentPage === 'Dashboard'}">
           <i class="bi bi-speedometer"></i>
           <span>Dashboard</span>
         </div>
@@ -53,7 +53,7 @@
           <span>Credits</span>
         </div>
         <div class="help-and-support">
-          <i class="bi bi-question-circle-fill"></i>
+          <i class="bi bi-question-diamond-fill"></i>
           <span>Help & Support</span>
         </div>
       </div>

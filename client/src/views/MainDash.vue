@@ -4,7 +4,9 @@
       <MainMenu />
     </div>
     <div class="right-side-content-container">
-      <div class="top-bar"></div>
+      <div class="top-bar">
+        <TopBar />
+      </div>
       <div class="main-content"></div>
     </div>
   </div>
@@ -12,10 +14,12 @@
 <script>
 import { mapMutations } from "vuex";
 import MainMenu from "@/components/MainDash/MainMenu";
+import TopBar from "@/components/MainDash/TopBar";
 export default {
   name: "MainDash",
   components: {
-    MainMenu
+    MainMenu,
+    TopBar
   },
   data() {
     return {
@@ -25,7 +29,7 @@ export default {
   methods: {
     ...mapMutations(["setCurrentPage"]),
     setPageToDashboard() {
-      this.setCurrentPage("dashboard");
+      this.setCurrentPage("Dashboard");
     }
   },
   created() {
