@@ -11,6 +11,7 @@ const loginRouter = require('./src/routes/login.routes');
 const signupRouter = require('./src/routes/signup.routes');
 const securityRouter = require('./src/routes/security.routes');
 const userRouter = require('./src/routes/user.routes');
+const tokenRouter = require('./src/routes/token.routes');
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use(`/${version}/login`, loginRouter);
 app.use(`/${version}/signup`, signupRouter);
 app.use(`/${version}/security`, securityRouter);
 app.use(`/${version}/users`, userRouter);
+app.use(`/${version}/tokens`, tokenRouter);
 
 module.exports = app;

@@ -7,7 +7,13 @@
       <div class="top-bar">
         <TopBar />
       </div>
-      <div class="main-content"></div>
+      <div class="main-content" v-if="!loading">
+        <Resumes v-if="Resumes" />
+      </div>
+      <div class="loading-container" v-if="loading">
+        <MainLoading />
+        <span>Loading...</span>
+      </div>
     </div>
   </div>
 </template>
@@ -15,14 +21,17 @@
 import { mapMutations } from "vuex";
 import MainMenu from "@/components/MainDash/MainMenu";
 import TopBar from "@/components/MainDash/TopBar";
+import MainLoading from "@/components/UI/MainLoadingSpinner";
 export default {
   name: "MainDash",
   components: {
     MainMenu,
-    TopBar
+    TopBar,
+    MainLoading,
   },
   data() {
     return {
+      loading: false,
       userData: null
     };
   },
@@ -63,6 +72,14 @@ export default {
     .main-content {
       width: 100%;
       height: calc(100% - 50px);
+    }
+    .loading-container {
+      width: 100%;
+      height: 100%;
+      @include flex(column, center, center);
+      span {
+        margin-top: 1em;
+      }
     }
   }
 }
