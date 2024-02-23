@@ -8,7 +8,8 @@
         <TopBar />
       </div>
       <div class="main-content" v-if="!loading">
-        <!-- <Resumes v-if="Resumes" /> -->
+        <MainDashboard v-if="currentPage == 'Dashboard'" />
+        <CandidateDetails v-if="currentPage == 'Candidate Details'" />
       </div>
       <div class="loading-container" v-if="loading">
         <MainLoading />
@@ -22,12 +23,16 @@ import { mapMutations, mapActions, mapGetters } from "vuex";
 import MainMenu from "@/components/MainDash/MainMenu";
 import TopBar from "@/components/MainDash/TopBar";
 import MainLoading from "@/components/UI/MainLoadingSpinner";
+import MainDashboard from "@/components/MainDash/MainDashboard";
+import CandidateDetails from "@/components/MainDash/CandidateDetails";
 export default {
   name: "MainDash",
   components: {
     MainMenu,
     TopBar,
     MainLoading,
+    MainDashboard,
+    CandidateDetails,
   },
   data() {
     return {
@@ -39,6 +44,9 @@ export default {
     ...mapGetters(["getUserData", "getCurrentPage"]),
     newUser() {
       return this.getUserData;
+    },
+    currentPage() {
+      return this.getCurrentPage;
     }
   },
   methods: {

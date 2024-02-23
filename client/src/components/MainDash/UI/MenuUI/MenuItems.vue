@@ -2,7 +2,7 @@
   <div class="menu-items">
     <div class="menu-section">
       <div class="first-section">
-        <div class="dashboard" :class="{'active-menu-item': currentPage === 'Dashboard'}">
+        <div class="dashboard" :class="{'active-menu-item': currentPage === 'Dashboard'}" @click="setNewPage('Dashboard')">
           <i class="bi bi-speedometer"></i>
           <span>Dashboard</span>
         </div>
@@ -40,7 +40,7 @@
       </div>
       <div class="divider-bar"></div>
       <div class="third-section">
-        <div class="candidate-details">
+        <div class="candidate-details" :class="{'active-menu-item': currentPage === 'Candidate Details'}" @click="setNewPage('Candidate Details')">
           <i class="bi bi-person-fill"></i>
           <span>Candidate Details</span>
         </div>
@@ -71,7 +71,7 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   name: "MenuItems",
   computed: {
@@ -82,6 +82,10 @@ export default {
   },
   methods: {
     ...mapActions(["logoutUser"]),
+    ...mapMutations(["setCurrentPage"]),
+    setNewPage(page) {
+      this.setCurrentPage(page);
+    },
     logout() {
       this.logoutUser();
       this.$router.go();
