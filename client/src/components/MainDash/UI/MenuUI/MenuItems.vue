@@ -126,11 +126,11 @@ export default {
           margin-right: 0.5em;
         }
         &:hover {
-          background-color: $ResPurple;
-          color: $ResWhite;
+          background-color: $ResWhite;
+          color: $ResPurple;
           cursor: pointer;
           i {
-            color: $ResWhite;
+            color: $ResPurple;
           }
         }
       }
@@ -157,11 +157,11 @@ export default {
           margin-right: 0.5em;
         }
         &:hover {
-          background-color: $ResPurple;
-          color: $ResWhite;
+          background-color: $ResWhite;
+          color: $ResPurple;
           cursor: pointer;
           i {
-            color: $ResWhite;
+            color: $ResPurple;
           }
         }
       }
@@ -181,11 +181,11 @@ export default {
           margin-right: 0.5em;
         }
         &:hover {
-          background-color: $ResPurple;
-          color: $ResWhite;
+          background-color: $ResWhite;
+          color: $ResPurple;
           cursor: pointer;
           i {
-            color: $ResWhite;
+            color: $ResPurple;
           }
         }
       }
@@ -204,11 +204,11 @@ export default {
         margin-right: 0.5em;
       }
       &:hover {
-        background-color: $ResPurple;
-        color: $ResWhite;
+        background-color: $ResWhite;
+        color: $ResPurple;
         cursor: pointer;
         i {
-          color: $ResWhite;
+          color: $ResPurple;
         }
       }
     }
