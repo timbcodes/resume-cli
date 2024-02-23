@@ -56,6 +56,7 @@ export default {
       font-size: 1.25em;
       color: $ResWhite;
       &:nth-child(2) {
+        font-size: 1.35em;
         color: $ResPurple;
       }
     }
