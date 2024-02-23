@@ -53,7 +53,6 @@ export default {
     // When created, get the user data. If the userdata doesn't exist, run the new user setup wizard
     this.loading = true;
     await this.hydrateUserData();
-    console.log(this.newUser);
     if (!this.newUser) {
       this.$router.push("/new-user-setup");
     }

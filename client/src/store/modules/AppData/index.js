@@ -6,7 +6,7 @@ export default {
     return {
       appData: {
         currentPage: "Dashboard",
-        creditData: 0,
+        creditData: "",
       }
     };
   },

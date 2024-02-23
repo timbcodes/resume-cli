@@ -178,13 +178,10 @@ export default {
         return;
       }
       const response = await this.setUserDetails(userDetails);
-      console.log(response);
       if (response.status === 200) {
         await this.hydrateUserData();
         const user = this.getUserData;
-        console.log(user);
         if (user.first_name) {
-          console.log("emitting next");
           this.loading = false;
           this.$router.push("/");
           return;
