@@ -9,13 +9,9 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "CurrentUser",
-  data() {
-    return {
-      userName: "Timothy Bradford",
-    };
-  },
   methods: {
     getInitials() {
       return this.userName
@@ -25,8 +21,12 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(["getUserData"]),
     userAvatar() {
       return this.getInitials();
+    },
+    userName() {
+      return `${this.getUserData.first_name} ${this.getUserData.last_name}`
     }
   },
 };

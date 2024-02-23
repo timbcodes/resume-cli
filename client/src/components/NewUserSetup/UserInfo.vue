@@ -22,35 +22,35 @@
         <form>
           <div class="input-box">
             <label for="first_name">First Name</label>
-            <input type="text" name="first_name" v-model="form.first_name" ref="first" required>
+            <input @keyup.enter.prevent="formSubmit" type="text" name="first_name" v-model="form.first_name" ref="first" required>
           </div>
           <div class="input-box">
             <label for="last_name">Last Name</label>
-            <input type="text" name="last_name" v-model="form.last_name" required>
+            <input @keyup.enter.prevent="formSubmit" type="text" name="last_name" v-model="form.last_name" required>
           </div>
           <div class="input-box">
             <label for="address">Address</label>
-            <input type="text" name="address" v-model="form.address" required>
+            <input @keyup.enter.prevent="formSubmit" type="text" name="address" v-model="form.address" required>
           </div>
           <div class="input-box">
             <label for="city">City</label>
-            <input type="text" name="city" v-model="form.city" required>
+            <input @keyup.enter.prevent="formSubmit" type="text" name="city" v-model="form.city" required>
           </div>
           <div class="input-box">
             <label for="state">State</label>
-            <input type="text" name="state" v-model="form.state" required>
+            <input @keyup.enter.prevent="formSubmit" type="text" name="state" v-model="form.state" required>
           </div>
           <div class="input-box">
             <label for="zip">Zip</label>
-            <input type="text" name="zip" v-model="form.zip" required>
+            <input @keyup.enter.prevent="formSubmit" type="text" name="zip" v-model="form.zip" required>
           </div>
           <div class="input-box">
             <label for="phone_number">Phone Number</label>
-            <input type="text" name="phone_number" v-model="form.phone_number" required>
+            <input @keyup.enter.prevent="formSubmit" type="text" name="phone_number" v-model="form.phone_number" required>
           </div>
           <div class="input-box">
             <label for="email">Email</label>
-            <input type="email" name="email" v-model="form.email" required>
+            <input @keyup.enter.prevent="formSubmit" type="email" name="email" v-model="form.email" required>
           </div>
         </form>
       </div>
@@ -65,9 +65,9 @@
 </template>
 <script>
 import Joi from 'joi';
+import { mapActions, mapGetters } from "vuex";
 import MainLogo from "@/components/UI/MainLogo";
 import TextLoadingSpinner from "@/components/UI/TextLoadingSpinner";
-
 export default {
   name: "UserInfo",
   components: {
@@ -91,6 +91,10 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["getUserData"]),
+    userData() {
+      return this.getUserData;
+    },
     validationSchema() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return Joi.object({
@@ -136,7 +140,7 @@ export default {
           'string.max': `Zip should have a maximum length of {#limit}`,
           'any.required': `Zip is a required field`,
         }),
-        phone_number: Joi.string().min(10).max(10).required().messages({
+        phone_number: Joi.string().min(10).max(11).required().messages({
           'string.base': `Phone number should be a type of 'text'`,
           'string.empty': `Phone number cannot be an empty field`,
           'string.min': `Phone number should have a minimum length of {#limit}`,
@@ -153,7 +157,8 @@ export default {
     },
   },
   methods: {
-    formSubmit() {
+    ...mapActions(["setUserDetails", "hydrateUserData"]),
+    async formSubmit() {
       this.errorMessage = "";
       this.loading = true;
       const userDetails = {
@@ -166,13 +171,29 @@ export default {
         phone_number: this.form.phone_number,
         email: this.form.email,
       };
-      console.log('User details:', userDetails);
       const { error } = this.validationSchema.validate(userDetails);
       if (error) {
         this.loading = false;
         this.errorMessage = error.details[0].message;
         return;
       }
+      const response = await this.setUserDetails(userDetails);
+      console.log(response);
+      if (response.status === 200) {
+        await this.hydrateUserData();
+        const user = this.getUserData;
+        console.log(user);
+        if (user.first_name) {
+          console.log("emitting next");
+          this.loading = false;
+          this.$router.push("/");
+          return;
+        }
+        this.loading = false;
+        this.errorMessage = "There was an error saving your information. Please try again.";        
+        return;
+      }
+      this.errorMessage = "There was an error saving your information. Please try again.";
       this.loading = false;
     },
   },

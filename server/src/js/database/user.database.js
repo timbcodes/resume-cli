@@ -2,9 +2,10 @@ const executeQuery = require('../services/database_query.service');
 
 const $SQLUser = {
   async setUserInfo (id, data) {
+    console.log("setUserInfo: data = ", data);
     try {
       const query = 'INSERT INTO user_details (first_name, last_name, address, city, state, zip, phone_number, email, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-      const result = await executeQuery(query, [data.firstName, data.lastName, data.address, data.city, data.state, data.postalCode, data.phoneNumber, data.emailAddress, id]);
+      const result = await executeQuery(query, [data.first_name, data.last_name, data.address, data.city, data.state, data.zip, data.phone_number, data.email, id]);
       return result;
     } catch (error) {
       console.log("setUserInfo: error = ", error);

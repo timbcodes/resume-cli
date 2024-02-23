@@ -11,8 +11,9 @@
       </div>
       <div class="current-tokens">
         <i class="bi bi-credit-card-fill"></i>
-        <span>Credits: </span>
-        <span>0</span>
+        <span>Credits:</span>
+        <TextLoadingSpinner class="spinner" v-if="creditLoading"/>
+        <span v-if="!creditLoading">{{ showCredits }}</span>
       </div>
       <div class="user-section">
         <CurrentUser />
@@ -21,24 +22,41 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import TextLoadingSpinner from "@/components/UI/TextLoadingSpinner";
 import CurrentUser from "@/components/MainDash/UI/TopBarUI/CurrentUser";
 export default {
   name: "TopBar",
   data() {
-    return {};
+    return {
+      creditLoading: false,
+    };
   },
   components: {
+    TextLoadingSpinner,
     CurrentUser,
   },
   computed: {
-    ...mapGetters(["getCurrentPage"]),
+    ...mapGetters(["getCurrentPage", "getCreditData"]),
     currentPage() {
       return this.getCurrentPage;
-    }
+    },
+    showCredits() {
+      console.log(this.getCreditData);
+      return this.getCreditData;
+    },
   },
-  methods: {},
-  beforeMount() {},
+  methods: {
+    ...mapActions(["hydrateCreditData"]),
+    getRemainingCredits() {
+      this.hydrateCreditData();
+    },
+  },
+  async beforeMount() {
+    this.creditLoading = true;
+    await this.getRemainingCredits();
+    this.creditLoading = false;
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -82,6 +100,13 @@ export default {
       }
     }
     .current-tokens {
+      @include flex(row, center, center);
+      .spinner {
+        margin-left: 0.5em;
+      }
+      span {
+        margin-left: 0.25em;
+      }
       margin-left: 20px;
       font-size: 1.2rem;
       i {
