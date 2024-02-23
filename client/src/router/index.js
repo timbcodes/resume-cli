@@ -1,12 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LandingPage from '@/views/LandingPage'
 import MainDash from '@/views/MainDash'
+import NewUserSetup from '@/views/NewUserSetup'
 
 const routes = [
   {
     path: '/',
     name: 'MainDash',
     component: MainDash,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/new-user-setup',
+    name: 'NewUserSetup',
+    component: NewUserSetup,
     meta: {
       requiresAuth: true
     }

@@ -4,9 +4,7 @@ import userDataGetters from "./getters";
 export default {
   state() {
     return {
-      userData: {
-        email: "",
-      }
+      userData: {}
     };
   },
   actions: userDataActions,

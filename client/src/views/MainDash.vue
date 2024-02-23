@@ -8,7 +8,7 @@
         <TopBar />
       </div>
       <div class="main-content" v-if="!loading">
-        <Resumes v-if="Resumes" />
+        <!-- <Resumes v-if="Resumes" /> -->
       </div>
       <div class="loading-container" v-if="loading">
         <MainLoading />
@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions, mapGetters } from "vuex";
 import MainMenu from "@/components/MainDash/MainMenu";
 import TopBar from "@/components/MainDash/TopBar";
 import MainLoading from "@/components/UI/MainLoadingSpinner";
@@ -35,19 +35,30 @@ export default {
       userData: null
     };
   },
+  computed: {
+    ...mapGetters(["isUserNew", "getCurrentPage"]),
+    newUser() {
+      return this.isUserNew;
+    }
+  },
   methods: {
     ...mapMutations(["setCurrentPage"]),
+    ...mapActions(["getUserData"]),
     setPageToDashboard() {
       this.setCurrentPage("Dashboard");
     }
   },
-  created() {
+  async created() {
     this.setPageToDashboard();
     // When created, get the user data. If the userdata doesn't exist, run the new user setup wizard
+    this.loading = true;
+    await this.getUserData();
+    console.log(this.newUser);
+    if (!this.newUser) {
+      this.$router.push("/new-user-setup");
+    }
+    this.loading = false;  
   },
-  mounted() {
-    // mounted
-  }
 };
 </script>
 <style lang="scss" scoped>

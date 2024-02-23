@@ -1,6 +1,15 @@
 import axiosUtils from "@/js/utils/axios_calls.utils";
 
 export default {
+  async getUserData() {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "get_user_info",
+      "get",
+      true
+    );
+    return response;
+  },
   async submitUserDetails(payload) {
     const response = await axiosUtils.axiosCall(
       "users",
