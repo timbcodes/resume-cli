@@ -3,9 +3,9 @@
     <div class="title-section">
       <div class="fixed-title">The Job Search Assistant that:</div>
       <div class="cycle-through-titles">
-        <span class="animated-title"> 
-          {{ titles[currentTitle] }} 
-        </span> 
+        <span class="animated-title">
+          {{ titles[currentTitle] }}
+        </span>
       </div>
     </div>
     <div class="button-container">
@@ -30,6 +30,8 @@ export default {
         "Doesn't Charge a Monthly Fee",
         "Tailors Your Resume to the Job",
         "Writes Flawless Cover Letters",
+        "Keeps Your Personal Information Private",
+        "Lets Recruiters Easily Find You",
         "Answers Application Questions",
         "Organizes Your Job Search",
         "Improves Your LinkedIn Profile",
@@ -51,7 +53,7 @@ export default {
           } else {
             this.currentTitle++;
           }
-          const titleElement = this.$el.querySelector('.animated-title'); 
+          const titleElement = this.$el.querySelector('.animated-title');
           if (titleElement) {
             // fade out, the fade in
             titleElement.style.animation = 'none';
@@ -72,10 +74,10 @@ export default {
 .title-container {
   @include flexCenterColumn;
   width: 100%;
-  height: 100vh; 
+  height: 100vh;
   .title-section {
-    text-align: center; 
-    .fixed-title, 
+    text-align: center;
+    .fixed-title,
     .animated-title {
       font-size: 3em;
       font-weight: bold;

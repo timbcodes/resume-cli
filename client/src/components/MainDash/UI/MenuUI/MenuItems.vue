@@ -8,7 +8,7 @@
         </div>
         <div class="jobs">
           <i class="bi bi-briefcase-fill"></i>
-          <span>Job Search</span>
+          <span>My Job Search</span>
         </div>
         <div class="quick-apply">
           <i class="bi bi-clipboard-plus-fill"></i>
@@ -46,15 +46,11 @@
         </div>
         <div class="generation-settings">
           <i class="bi bi-gear-fill"></i>
-          <span>Generation Settings</span>
+          <span>Generator Settings</span>
         </div>
         <div class="credits">
           <i class="bi bi-credit-card-fill"></i>
           <span>Credits</span>
-        </div>
-        <div class="help-and-support">
-          <i class="bi bi-question-diamond-fill"></i>
-          <span>Help & Support</span>
         </div>
       </div>
     </div>
@@ -175,8 +171,7 @@ export default {
       width: 100%;
       .candidate-details,
       .generation-settings,
-      .credits,
-      .help-and-support {
+      .credits {
         @include flex(row, flex-start, center);
         width: 100%;
         padding: 1em;
