@@ -16,6 +16,7 @@ router.post('/set_skills', authenticate, userController.setSkills);
 router.post('/set_education', authenticate, userController.setEducation);
 
 router.get('/resume_exists', authenticate, userController.resumeExists);
+router.get('/get_user_data', authenticate, userController.getUserData);
 router.get('/get_user_info', authenticate, userController.getUserInfo);
 router.get('/get_user_resume', authenticate, userController.getUserResume);
 

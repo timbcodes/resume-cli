@@ -59,7 +59,7 @@ export default {
 @import "@/scss/mixins.scss";
 @import "@/scss/variables.scss";
 .display-container {
-  width: 90%;
+  width: 80%;
   height: 100%;
   @include flexCenterColumn;
   gap: 2em;
@@ -73,7 +73,7 @@ export default {
       @include flex(row, space-between, center);
       gap: 2em;
       span {
-        font-size: 1.25rem;
+        font-size: 1em;
         color: $ResCream;
       }
     }

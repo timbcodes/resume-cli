@@ -107,6 +107,20 @@ const userController = {
       responseUtils.sendErrorResponse({res, responseBody: error});
     }
   },
+  async getUserData (req, res) {
+    try {
+      const {id} = req.user;
+      const user = await $SQLUser.getUserData(id);
+      if (user) {
+        responseUtils.sendResponse({res, responseBody: user});
+      } else {
+        responseUtils.sendNotFound({res, statusCode: 401, responseBody: {message: 'Unauthorized'}});
+      }
+    } catch (error) {
+      console.log("getUserData: error = ", error);
+      responseUtils.sendErrorResponse({res, responseBody: error});
+    }
+  },
   async getUserInfo (req, res) {
     try {
       const {id} = req.user;

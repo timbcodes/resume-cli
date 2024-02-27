@@ -72,6 +72,16 @@ const $SQLUser = {
       throw error;
     }
   },
+  async getUserData (id) {
+    try {
+      const query = 'SELECT email, personal_info, additional_info FROM users WHERE id = ?';
+      const result = await executeQuery(query, [id]);
+      return result;
+    } catch (error) {
+      console.log("getUserData: error = ", error);
+      throw error;
+    }
+  },
   async getUserInfo (id) {
     try {
       const query = 'SELECT * FROM user_details WHERE user_id = ?';
