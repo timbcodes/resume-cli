@@ -107,10 +107,10 @@ const userController = {
       responseUtils.sendErrorResponse({res, responseBody: error});
     }
   },
-  async getUserData (req, res) {
+  async getLoginData (req, res) {
     try {
       const {id} = req.user;
-      const user = await $SQLUser.getUserData(id);
+      const user = await $SQLUser.getLoginData(id);
       if (user) {
         responseUtils.sendResponse({res, responseBody: user});
       } else {

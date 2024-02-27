@@ -72,7 +72,7 @@ const $SQLUser = {
       throw error;
     }
   },
-  async getUserData (id) {
+  async getLoginData (id) {
     try {
       const query = 'SELECT email, personal_info, additional_info FROM users WHERE id = ?';
       const result = await executeQuery(query, [id]);

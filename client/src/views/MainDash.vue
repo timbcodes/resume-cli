@@ -37,12 +37,14 @@ export default {
   data() {
     return {
       loading: false,
-      userData: null
     };
   },
   computed: {
-    ...mapGetters(["getUserData", "getCurrentPage"]),
-    newUser() {
+    ...mapGetters(["getLoginData", "getUserData", "getCurrentPage"]),
+    loginData() {
+      return this.getLoginData;
+    },
+    userData() {
       return this.getUserData;
     },
     currentPage() {
@@ -51,7 +53,7 @@ export default {
   },
   methods: {
     ...mapMutations(["setCurrentPage"]),
-    ...mapActions(["hydrateUserData"]),
+    ...mapActions(["hydrateLoginData", "hydrateUserData"]),
     setPageToDashboard() {
       this.setCurrentPage("Dashboard");
     }
@@ -60,11 +62,14 @@ export default {
     this.setPageToDashboard();
     // When created, get the user data. If the userdata doesn't exist, run the new user setup wizard
     this.loading = true;
+    await this.hydrateLoginData();
     await this.hydrateUserData();
-    if (!this.newUser) {
+    console.log("Login Data: ", this.loginData);
+    console.log("User Data: ", this.userData);
+    if (!this.loginData.personal_info || !this.loginData.additional_info) {
       this.$router.push("/new-user-setup");
     }
-    this.loading = false;  
+    this.loading = false;
   },
 };
 </script>

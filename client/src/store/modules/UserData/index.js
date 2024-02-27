@@ -4,7 +4,8 @@ import userDataGetters from "./getters";
 export default {
   state() {
     return {
-      userData: {}
+      loginData: {},
+      userData: {},
     };
   },
   actions: userDataActions,

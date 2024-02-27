@@ -10,6 +10,15 @@ export default {
     );
     return response;
   },
+  async getLoginData() {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "get_login_data",
+      "get",
+      true
+    );
+    return response;
+  },
   async submitUserDetails(payload) {
     const response = await axiosUtils.axiosCall(
       "users",
