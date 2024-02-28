@@ -18,6 +18,7 @@ const userController = {
     }
   },
   async setAdditionalInfo (req, res) {
+    console.log("setAdditionalInfo: req.body = ", req.body);
     try {
       const {id} = req.user;
       const data = req.body;
@@ -29,6 +30,19 @@ const userController = {
       }
     } catch (error) {
       console.log("setAdditionalInfo: error = ", error);
+      responseUtils.sendErrorResponse({res, responseBody: error});
+    }
+  },
+  async setSummaryInfo (req, res) {
+    try {
+      const {id} = req.user;
+      const data = req.body;
+      const user = await $SQLUser.setSummaryInfo(id, data);
+      if (user) {
+        responseUtils.sendResponse({res, responseBody: user});
+      }
+    } catch (error) {
+      console.log("setSummary: error = ", error);
       responseUtils.sendErrorResponse({res, responseBody: error});
     }
   },
@@ -93,11 +107,11 @@ const userController = {
       responseUtils.sendErrorResponse({res, responseBody: error});
     }
   },
-  async setPersonalInfo (req, res) {
+  async setPersonal (req, res) {
     try {
       const {id} = req.user;
       const data = req.body;
-      const user = await $SQLUser.setPersonalInfo(id, data);
+      const user = await $SQLUser.setPersonal(id, data);
       if (user) {
         responseUtils.sendResponse({res, responseBody: user});
       }
@@ -106,11 +120,11 @@ const userController = {
       responseUtils.sendErrorResponse({res, responseBody: error});
     }
   },
-  async setAdditionalInfo (req, res) {
+  async setAdditional (req, res) {
     try {
       const {id} = req.user;
       const data = req.body;
-      const user = await $SQLUser.setAdditionalInfo(id, data);
+      const user = await $SQLUser.setAdditional(id, data);
       if (user) {
         responseUtils.sendResponse({res, responseBody: user});
       }

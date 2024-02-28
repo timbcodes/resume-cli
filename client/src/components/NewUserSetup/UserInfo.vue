@@ -91,9 +91,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getUserData"]),
+    ...mapGetters(["getLoginData", "getUserData"]),
     userData() {
       return this.getUserData;
+    },
+    loginData() {
+      return this.getLoginData;
     },
     validationSchema() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -196,6 +199,9 @@ export default {
     },
   },
   mounted() {
+    if(this.loginData.personal_info) {
+      this.$emit("goToNext");
+    }
     this.$refs.first.focus();
   },
 };

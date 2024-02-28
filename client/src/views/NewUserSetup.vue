@@ -4,6 +4,7 @@
       <div class="big-box">
         <UserInfo v-if="page=='personal'" @goToNext="goToCareer" />
         <CareerDetails v-if="page=='career'" @goToNext="goToSummary" />
+        <CareerSummary v-if="page=='summary'" />
       </div>
     </div>
     <div class="logo-footer">
@@ -15,11 +16,13 @@
 import { mapGetters } from "vuex";
 import UserInfo from "@/components/NewUserSetup/UserInfo";
 import CareerDetails from "@/components/NewUserSetup/CareerDetails";
+import CareerSummary from "@/components/NewUserSetup/CareerSummary";
 export default {
   name: "NewUserSetup",
   components: {
     UserInfo,
     CareerDetails,
+    CareerSummary,
   },
   data() {
     return {
@@ -36,7 +39,7 @@ export default {
     startPage() {
       if (!this.loginData.personal_info) {
         this.page = "personal";
-      } else if (!this.loginData.career_info) {
+      } else if (!this.loginData.additional_info) {
         this.page = "career";
       } else if (!this.loginData.summary) {
         this.page = "summary";
@@ -51,7 +54,7 @@ export default {
       this.page = "summary";
     },
   },
-  created() {
+  mounted() {
     if(!this.getLoginData) {
       this.$router.push("/");
       return;

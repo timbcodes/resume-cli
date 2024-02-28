@@ -139,11 +139,14 @@ export default {
         this.errorMessage = "There was an error saving your information. Please try again.";
         return;
       }
-      this.errorMessage = "There was an error saving your information. Please try again.";
       this.loading = false;
+      this.errorMessage = "There was an error saving your information. Please try again.";
     },
   },
   mounted() {
+    if(this.loginData.additional_info) {
+      this.$emit("goToNext");
+    }
     this.$refs.title.focus();
   },
 };

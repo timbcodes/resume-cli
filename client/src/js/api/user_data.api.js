@@ -39,6 +39,16 @@ export default {
     );
     return response;
   },
+  async submitSummaryInfo(payload) {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_summary_info",
+      "post",
+      true,
+      payload
+    );
+    return response;
+  },
   async submitJobHistory(payload) {
     const response = await axiosUtils.axiosCall(
       "users",

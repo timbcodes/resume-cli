@@ -14,11 +14,22 @@ const $SQLUser = {
   },
   async setAdditionalInfo (id, data) {
     try {
+      console.log(data);
       const query = 'UPDATE user_details SET job_title = ?, title_search = ?, career_industry = ?, career_years = ?, previous_jobs = ? WHERE user_id = ?';
-      const result = await executeQuery(query, [data.jobTitle, data.lookingFor, data.industry, data.careerYears, data.howManyJobs, id]);
+      const result = await executeQuery(query, [data.job_title, data.title_search, data.career_industry, data.career_years, data.previous_jobs, id]);
       return result;
       } catch (error) {
       console.log("setAdditionalInfo: error = ", error);
+      throw error;
+    }
+  },
+  async setSummaryInfo (id, data) {
+    try {
+      const query = 'UPDATE user_details SET brief_summary = ? WHERE user_id = ?';
+      const result = await executeQuery(query, [data.brief_summary, id]);
+      return result;
+    } catch (error) {
+      console.log("setSummary: error = ", error);
       throw error;
     }
   },
@@ -62,7 +73,7 @@ const $SQLUser = {
       throw error;
     }
   },
-  async setPersonalInfo (id, data) {
+  async setPersonal (id) {
     try {
       const query = 'UPDATE users SET personal_info = ? WHERE id = ?';
       const result = await executeQuery(query, [true, id]);
@@ -72,20 +83,20 @@ const $SQLUser = {
       throw error;
     }
   },
-  async setAdditionalInfo (id, data) {
+  async setAdditional (id) {
     try {
       const query = 'UPDATE users SET additional_info = ? WHERE id = ?';
-      const result = await executeQuery(true, [data, id]);
+      const result = await executeQuery(query, [true, id]);
       return result;
     } catch (error) {
       console.log("setAdditionalInfo: error = ", error);
       throw error;
     }
   },
-  async setSummary (id, data) {
+  async setSummary (id) {
     try {
       const query = 'UPDATE users SET summary = ? WHERE id = ?';
-      const result = await executeQuery(query, [data, id]);
+      const result = await executeQuery(query, [true, id]);
       return result;
     } catch (error) {
       console.log("setSummary: error = ", error);
@@ -104,7 +115,7 @@ const $SQLUser = {
   },
   async getLoginData (id) {
     try {
-      const query = 'SELECT email, personal_info, additional_info FROM users WHERE id = ?';
+      const query = 'SELECT email, personal_info, additional_info, summary FROM users WHERE id = ?';
       const result = await executeQuery(query, [id]);
       return result;
     } catch (error) {
