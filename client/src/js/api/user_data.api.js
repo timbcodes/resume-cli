@@ -29,7 +29,7 @@ export default {
     );
     return response;
   },
-  async sumbitAdditionalInfo(payload) {
+  async submitAdditionalInfo(payload) {
     const response = await axiosUtils.axiosCall(
       "users",
       "set_additional_info",
@@ -76,6 +76,33 @@ export default {
       "post",
       true,
       payload
+    );
+    return response;
+  },
+  async changePersonalInfo() {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_personal",
+      "get",
+      true
+    );
+    return response;
+  },
+  async changeAdditionalInfo() {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_additional",
+      "get",
+      true
+    );
+    return response;
+  },
+  async changeSummary() {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_summary",
+      "get",
+      true
     );
     return response;
   },

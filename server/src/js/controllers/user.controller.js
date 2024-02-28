@@ -93,6 +93,45 @@ const userController = {
       responseUtils.sendErrorResponse({res, responseBody: error});
     }
   },
+  async setPersonalInfo (req, res) {
+    try {
+      const {id} = req.user;
+      const data = req.body;
+      const user = await $SQLUser.setPersonalInfo(id, data);
+      if (user) {
+        responseUtils.sendResponse({res, responseBody: user});
+      }
+    } catch (error) {
+      console.log("setPersonalInfo: error = ", error);
+      responseUtils.sendErrorResponse({res, responseBody: error});
+    }
+  },
+  async setAdditionalInfo (req, res) {
+    try {
+      const {id} = req.user;
+      const data = req.body;
+      const user = await $SQLUser.setAdditionalInfo(id, data);
+      if (user) {
+        responseUtils.sendResponse({res, responseBody: user});
+      }
+    } catch (error) {
+      console.log("setAdditionalInfo: error = ", error);
+      responseUtils.sendErrorResponse({res, responseBody: error});
+    }
+  },
+  async setSummary (req, res) {
+    try {
+      const {id} = req.user;
+      const data = req.body;
+      const user = await $SQLUser.setSummary(id, data);
+      if (user) {
+        responseUtils.sendResponse({res, responseBody: user});
+      }
+    } catch (error) {
+      console.log("setSummary: error = ", error);
+      responseUtils.sendErrorResponse({res, responseBody: error});
+    }
+  },
   async resumeExists (req, res) {
     try {
       const {id} = req.user;

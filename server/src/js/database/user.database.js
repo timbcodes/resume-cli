@@ -14,8 +14,8 @@ const $SQLUser = {
   },
   async setAdditionalInfo (id, data) {
     try {
-      const query = 'UPDATE user_details SET job_title = ?, title_search = ?, career_industry = ?, career_years = ?, previous_jobs = ?, brief_summary = ? WHERE user_id = ?';
-      const result = await executeQuery(query, [data.jobTitle, data.lookingFor, data.industry, data.careerYears, data.howManyJobs, data.briefSummary, id]);
+      const query = 'UPDATE user_details SET job_title = ?, title_search = ?, career_industry = ?, career_years = ?, previous_jobs = ? WHERE user_id = ?';
+      const result = await executeQuery(query, [data.jobTitle, data.lookingFor, data.industry, data.careerYears, data.howManyJobs, id]);
       return result;
       } catch (error) {
       console.log("setAdditionalInfo: error = ", error);
@@ -59,6 +59,36 @@ const $SQLUser = {
       return result;
     } catch (error) {
       console.log("setEducation: error = ", error);
+      throw error;
+    }
+  },
+  async setPersonalInfo (id, data) {
+    try {
+      const query = 'UPDATE users SET personal_info = ? WHERE id = ?';
+      const result = await executeQuery(query, [true, id]);
+      return result;
+    } catch (error) {
+      console.log("setPersonalInfo: error = ", error);
+      throw error;
+    }
+  },
+  async setAdditionalInfo (id, data) {
+    try {
+      const query = 'UPDATE users SET additional_info = ? WHERE id = ?';
+      const result = await executeQuery(true, [data, id]);
+      return result;
+    } catch (error) {
+      console.log("setAdditionalInfo: error = ", error);
+      throw error;
+    }
+  },
+  async setSummary (id, data) {
+    try {
+      const query = 'UPDATE users SET summary = ? WHERE id = ?';
+      const result = await executeQuery(query, [data, id]);
+      return result;
+    } catch (error) {
+      console.log("setSummary: error = ", error);
       throw error;
     }
   },

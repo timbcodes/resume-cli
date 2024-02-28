@@ -2,7 +2,8 @@
   <div class="main-body">
     <div class="main-content">
       <div class="big-box">
-        <UserInfo />
+        <UserInfo v-if="page=='personal'" @goToNext="goToCareer" />
+        <CareerDetails v-if="page=='career'" @goToNext="goToSummary" />
       </div>
     </div>
     <div class="logo-footer">
@@ -11,11 +12,55 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import UserInfo from "@/components/NewUserSetup/UserInfo";
+import CareerDetails from "@/components/NewUserSetup/CareerDetails";
 export default {
   name: "NewUserSetup",
   components: {
     UserInfo,
+    CareerDetails,
+  },
+  data() {
+    return {
+      page: "personal",
+    };
+  },
+  computed: {
+    ...mapGetters(["getLoginData"]),
+    loginData() {
+      return this.getLoginData;
+    },
+  },
+  methods: {
+    startPage() {
+      if (!this.loginData.personal_info) {
+        this.page = "personal";
+      } else if (!this.loginData.career_info) {
+        this.page = "career";
+      } else if (!this.loginData.summary) {
+        this.page = "summary";
+      } else {
+        this.$router.push("/");
+      }
+    },
+    goToCareer() {
+      this.page = "career";
+    },
+    goToSummary() {
+      this.page = "summary";
+    },
+  },
+  created() {
+    if(!this.getLoginData) {
+      this.$router.push("/");
+      return;
+    }
+    if(this.loginData.personal_info && this.loginData.career_info && this.loginData.summary) {
+      this.$router.push("/");
+      return;
+    }
+    this.startPage();
   },
 };
 </script>

@@ -1,22 +1,28 @@
 <template>
-  <div class="main-dashboard">
-    <div class="left-side-menu-container">
-      <MainMenu />
-    </div>
-    <div class="right-side-content-container">
-      <div class="top-bar">
-        <TopBar />
-      </div>
-      <div class="main-content" v-if="!loading">
-        <MainDashboard v-if="currentPage == 'Dashboard'" />
-        <CandidateDetails v-if="currentPage == 'Candidate Details'" />
-      </div>
-      <div class="loading-container" v-if="loading">
+    <div class="wrapper">
+      <div class="main-loading">
         <MainLoading />
         <span>Loading...</span>
       </div>
+      <div class="main-dashboard" v-if="hydrationCheck">
+        <div class="left-side-menu-container">
+          <MainMenu />
+        </div>
+        <div class="right-side-content-container">
+          <div class="top-bar">
+            <TopBar />
+          </div>
+          <div class="main-content" v-if="!loading">
+            <MainDashboard v-if="currentPage == 'Dashboard'" />
+            <CandidateDetails v-if="currentPage == 'Candidate Details'" />
+          </div>
+          <div class="loading-container" v-if="loading">
+            <MainLoading />
+            <span>Loading...</span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 </template>
 <script>
 import { mapMutations, mapActions, mapGetters } from "vuex";
@@ -36,6 +42,7 @@ export default {
   },
   data() {
     return {
+      hydrationCheck: false,
       loading: false,
     };
   },
@@ -60,12 +67,11 @@ export default {
   },
   async created() {
     this.setPageToDashboard();
-    // When created, get the user data. If the userdata doesn't exist, run the new user setup wizard
     this.loading = true;
     await this.hydrateLoginData();
     await this.hydrateUserData();
-    console.log("Login Data: ", this.loginData);
-    console.log("User Data: ", this.userData);
+    this.hydrationCheck = true;
+    // TODO: Make sure this works
     if (!this.loginData.personal_info || !this.loginData.additional_info) {
       this.$router.push("/new-user-setup");
     }
@@ -76,32 +82,44 @@ export default {
 <style lang="scss" scoped>
 @import "@/scss/mixins.scss";
 @import "@/scss/variables.scss";
-.main-dashboard {
-  @include flex(row, center, center);
+.wrapper {
   width: 100%;
   height: 100%;
-  .left-side-menu-container {
-    width: 200px;
+  .main-loading {
+    width: 100%;
     height: 100%;
+    @include flexCenterColumn;
+    span {
+      margin-top: 1em;
+    }
   }
-  .right-side-content-container {
-    width: calc(100% - 200px);
+  .main-dashboard {
+    @include flexCenter;
+    width: 100%;
     height: 100%;
-    @include flex(column, center, center);
-    .top-bar {
-      width: 100%;
-      height: 50px;
-    }
-    .main-content {
-      width: 100%;
-      height: calc(100% - 50px);
-    }
-    .loading-container {
-      width: 100%;
+    .left-side-menu-container {
+      width: 200px;
       height: 100%;
-      @include flex(column, center, center);
-      span {
-        margin-top: 1em;
+    }
+    .right-side-content-container {
+      width: calc(100% - 200px);
+      height: 100%;
+      @include flexCenterColumn;
+      .top-bar {
+        width: 100%;
+        height: 50px;
+      }
+      .main-content {
+        width: 100%;
+        height: calc(100% - 50px);
+      }
+      .loading-container {
+        width: 100%;
+        height: 100%;
+        @include flexCenterColumn;
+        span {
+          margin-top: 1em;
+        }
       }
     }
   }

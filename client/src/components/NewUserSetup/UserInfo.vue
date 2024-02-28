@@ -8,7 +8,7 @@
         <div class="text-box">
           <h1 class="title">Welcome!</h1>
           <p>
-            I've noticed this is your first time here. Let's get started on your resume. Fill out the form to the right with the information you'd like to appear on your resume. <span>(Your email should be the one you want employers to contact you at, not necessarily the one you signed up with.)</span>
+            I've noticed this is your first time here. Let's get started on your resume. Fill out the form to the right with the information you'd like to appear on your resume. We will never share your personal information with anyone, including our AI model or any third parties. <span>(Your email should be the one you want employers to contact you at, not necessarily the one you signed up with.)</span>
           </p>
         </div>
       </div>
@@ -157,7 +157,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["setUserDetails", "hydrateUserData"]),
+    ...mapActions(["setUserDetails", "hydrateUserData", "changePersonalInfo"]),
     async formSubmit() {
       this.errorMessage = "";
       this.loading = true;
@@ -183,11 +183,12 @@ export default {
         const user = this.getUserData;
         if (user.first_name) {
           this.loading = false;
-          this.$router.push("/");
+          this.changePersonalInfo();
+          this.$emit("goToNext");
           return;
         }
         this.loading = false;
-        this.errorMessage = "There was an error saving your information. Please try again.";        
+        this.errorMessage = "There was an error saving your information. Please try again.";
         return;
       }
       this.errorMessage = "There was an error saving your information. Please try again.";

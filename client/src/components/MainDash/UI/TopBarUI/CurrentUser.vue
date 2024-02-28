@@ -1,5 +1,5 @@
 <template>
-  <div class="current-user">
+  <div class="current-user" v-if="getUserData">
     <div class="user-avatar">
       {{ userAvatar }}
     </div>
@@ -14,7 +14,8 @@ export default {
   name: "CurrentUser",
   methods: {
     getInitials() {
-      return this.userName
+      const userName = this.userName || "";
+      return userName
         .split(" ")
         .map((n) => n[0])
         .join("");
@@ -26,7 +27,7 @@ export default {
       return this.getInitials();
     },
     userName() {
-      return `${this.getUserData.first_name} ${this.getUserData.last_name}`
+      return `${this.getUserData.first_name ?? ""} ${this.getUserData.last_name ?? ""}`
     }
   },
 };
