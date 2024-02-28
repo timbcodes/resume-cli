@@ -42,7 +42,8 @@ export default {
       return this.getCurrentPage;
     },
     showCredits() {
-      return this.getCreditData;
+      // return this.getCreditData or 0 if it's undefined
+      return this.getCreditData ? this.getCreditData : 0;
     },
   },
   methods: {
