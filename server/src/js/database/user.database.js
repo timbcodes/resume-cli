@@ -115,7 +115,7 @@ const $SQLUser = {
   },
   async getLoginData (id) {
     try {
-      const query = 'SELECT email, personal_info, additional_info, summary FROM users WHERE id = ?';
+      const query = 'SELECT email, personal_info, additional_info, summary, education FROM users WHERE id = ?';
       const result = await executeQuery(query, [id]);
       return result;
     } catch (error) {

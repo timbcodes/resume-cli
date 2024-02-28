@@ -71,7 +71,7 @@ export default {
     await this.hydrateLoginData();
     await this.hydrateUserData();
     this.hydrationCheck = true;
-    if (!this.loginData.personal_info || !this.loginData.additional_info || !this.loginData.summary) {
+    if (!this.loginData.personal_info || !this.loginData.additional_info || !this.loginData.summary || !this.loginData.education) {
       this.$router.push("/new-user-setup");
     }
     this.loading = false;

@@ -4,7 +4,8 @@
       <div class="big-box">
         <UserInfo v-if="page=='personal'" @goToNext="goToCareer" />
         <CareerDetails v-if="page=='career'" @goToNext="goToSummary" />
-        <CareerSummary v-if="page=='summary'" />
+        <CareerSummary v-if="page=='summary'" @goToNext="goToEducation" />
+        <UserEducation v-if="page=='education'" />
       </div>
     </div>
     <div class="logo-footer">
@@ -17,12 +18,14 @@ import { mapGetters } from "vuex";
 import UserInfo from "@/components/NewUserSetup/UserInfo";
 import CareerDetails from "@/components/NewUserSetup/CareerDetails";
 import CareerSummary from "@/components/NewUserSetup/CareerSummary";
+import UserEducation from "@/components/NewUserSetup/UserEducation";
 export default {
   name: "NewUserSetup",
   components: {
     UserInfo,
     CareerDetails,
     CareerSummary,
+    UserEducation,
   },
   data() {
     return {
@@ -43,6 +46,8 @@ export default {
         this.page = "career";
       } else if (!this.loginData.summary) {
         this.page = "summary";
+      } else if (!this.loginData.education) {
+        this.page = "education";
       } else {
         this.$router.push("/");
       }
@@ -53,13 +58,16 @@ export default {
     goToSummary() {
       this.page = "summary";
     },
+    goToEducation() {
+      this.page = "education";
+    },
   },
   mounted() {
     if(!this.getLoginData) {
       this.$router.push("/");
       return;
     }
-    if(this.loginData.personal_info && this.loginData.career_info && this.loginData.summary) {
+    if(this.loginData.personal_info && this.loginData.career_info && this.loginData.summary && this.loginData.education) {
       this.$router.push("/");
       return;
     }
