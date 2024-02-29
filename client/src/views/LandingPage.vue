@@ -67,6 +67,10 @@ export default {
       this.setUserAuthModalState(true);
       this.setUserLoginModalState(true);
     },
+    closeLogin() {
+      this.setUserAuthModalState(false);
+      this.setUserLoginModalState(false);
+    },
     nextVideo() {
       this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videos.length;
       this.$refs.myVideo.src = this.videos[this.currentVideoIndex];
@@ -77,6 +81,7 @@ export default {
     },
   },
   mounted() {
+    this.closeLogin();
     this.$refs.myVideo.addEventListener("ended", this.nextVideo);
   },
 }

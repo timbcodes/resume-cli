@@ -77,9 +77,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getUserData"]),
+    ...mapGetters(["getLoginData", "getUserData"]),
     userData() {
       return this.getUserData;
+    },
+    loginData() {
+      return this.getLoginData;
     },
     validationSchema() {
       return Joi.object({

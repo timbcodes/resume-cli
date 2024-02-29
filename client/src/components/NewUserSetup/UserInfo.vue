@@ -199,6 +199,7 @@ export default {
     },
   },
   mounted() {
+    this.errorMessage = "";
     if(this.loginData.personal_info) {
       this.$emit("goToNext");
     }

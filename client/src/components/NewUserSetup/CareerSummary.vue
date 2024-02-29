@@ -125,14 +125,6 @@ export default {
     },
   },
   mounted() {
-    if(!this.getUserData) {
-      this.$router.push("/");
-      return;
-    }
-    if(this.getUserData.brief_summary) {
-      this.$emit('goToNext');
-      return;
-    }
     this.$nextTick(() => {
       this.$refs.brief_summary.focus();
     });
