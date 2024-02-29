@@ -1,14 +1,22 @@
 <template>
   <div class="candidate-details">
     <div class="left-card">
-      <CandidateCard />
+      <CandidateCard
+        :loading="cardLoading"
+        :user="userData"
+        :loggedInUser="loginData"
+      />
     </div>
     <div class="right-card">
-      <AdditionalDetails />
+      <AdditionalDetails
+        :loading="detailLoading"
+        :user="userData"
+      />
     </div>
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import CandidateCard from "@/components/MainDash/UI/CandidateDetails/CandidateCard";
 import AdditionalDetails from "@/components/MainDash/UI/CandidateDetails/AdditionalDetails";
 export default {
@@ -16,6 +24,38 @@ export default {
   components: {
     CandidateCard,
     AdditionalDetails,
+  },
+  data() {
+    return {
+      cardLoading: true,
+      loading: true,
+    };
+  },
+  computed: {
+    ...mapGetters(["getUserData", "getLoginData"]),
+    userData() {
+      return this.getUserData;
+    },
+    loginData() {
+      return this.getLoginData;
+    },
+  },
+  methods: {
+    ...mapActions(["hydrateUserData", "hydrateLoginData"]),
+    buildUser() {
+      this.hydrateUserData();
+    },
+    buildLogin() {
+      this.hydrateLoginData();
+    },
+  },
+  created() {
+    this.cardLoading = true;
+    this.detailLoading = true;
+    this.buildUser();
+    this.detailLoading = false;
+    this.buildLogin();
+    this.cardLoading = false;
   },
 };
 </script>
@@ -34,6 +74,7 @@ export default {
   .right-card {
     width: 70%;
     height: 100%;
+    @include flexCenter;
   }
 }
 </style>

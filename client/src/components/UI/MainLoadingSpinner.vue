@@ -12,7 +12,7 @@ export default {
 .loading-spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid $ResBlack;
+  border: 5px solid $ResCream;
   border-radius: 50%;
   border-top: 5px solid $ResPurple;
   animation: spin 1s linear infinite;

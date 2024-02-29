@@ -80,11 +80,11 @@ export default {
       @include flexCenter;
       gap: 1em;
       label {
-        width: 30%;
+        width: 40%;
         text-align: right;
       }
       input {
-        width: 70%;
+        width: 60%;
         padding: 0.5em;
         border-radius: 5px;
         background-color: $ResSmoke;

@@ -1,6 +1,10 @@
 <template>
   <div class="candidate-card">
-    <div class="user-details">
+    <div class="loading-container" v-if="loading">
+      <MainLoadingSpinner />
+      <p>Loading...</p>
+    </div>
+    <div class="user-details" v-if="!loading">
       <div class="main-data">
         <div class="user-avatar">
           {{ userAvatar }}
@@ -9,38 +13,43 @@
           <span>{{ userName }}</span>
         </div>
         <div class="email">
-          <span>{{ userData.email }}</span>
+          <span>{{ loggedInUser.email }}</span>
         </div>
       </div>
       <div class="secondary-data">
         <DetailsDisplay
           v-if="!edit"
-          :currentUser = "user"
-          @toggle = "toggleEdit"
+          :currentUser="user"
+          @toggle="toggleEdit"
         />
         <DetailsEditForm
           v-if="edit"
-          :currentUser = "user"
-          @toggle = "toggleEdit"
+          :currentUser="user"
+          @toggle="toggleEdit"
         />
       </div>
     </div>
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import MainLoadingSpinner from '@/components/UI/MainLoadingSpinner';
 import DetailsDisplay from './DetailsDisplay';
 import DetailsEditForm from './DetailsEditForm';
 export default {
   name: "CandidateCard",
   components: {
+    MainLoadingSpinner,
     DetailsDisplay,
     DetailsEditForm,
+  },
+  props: {
+    loading: Boolean,
+    user: Object,
+    loggedInUser: Object,
   },
   data() {
     return {
       edit: false,
-      user: null,
     };
   },
   methods: {
@@ -55,16 +64,11 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getUserData"]),
-    userData() {
-      this.user = this.getUserData;
-      return this.getUserData;
-    },
     userAvatar() {
       return this.getInitials();
     },
     userName() {
-      return `${this.getUserData.first_name} ${this.getUserData.last_name}`
+      return `${this.user.first_name} ${this.user.last_name}`
     }
   },
 };
@@ -79,6 +83,12 @@ export default {
   min-height: 600px;
   border-radius: $ResRoundedEdges;
   background-color: $ResGrey;
+  .loading-container {
+    width: 100%;
+    height: 100%;
+    @include flexCenterColumn;
+    gap: 1em;
+  }
   .user-details {
     width: 100%;
     height: 100%;
