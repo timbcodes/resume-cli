@@ -88,7 +88,6 @@ export default {
           linkName: this.linkNames[i],
         });
       }
-      console.log(this.linkArray);
       this.addLinkDetails(this.linkArray);
       await this.submitLinks();
       this.$emit("noLoading");

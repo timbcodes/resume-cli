@@ -84,7 +84,6 @@ export default {
           skills: this.skillLists[i].split(",").map((skill) => skill.trim()),
         });
       }
-      console.log(this.skillArray);
       this.addSkillDetails(this.skillArray);
       await this.submitSkills();
       this.$emit("noLoading");

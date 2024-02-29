@@ -91,7 +91,6 @@ export default {
             .map((detail) => detail.trim()),
         });
       }
-      console.log(this.educationArray);
       this.addEducationDetails(this.educationArray);
       await this.submitEducation();
       this.$emit("noLoading");

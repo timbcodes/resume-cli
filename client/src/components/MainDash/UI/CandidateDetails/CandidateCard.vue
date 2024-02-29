@@ -57,7 +57,6 @@ export default {
   computed: {
     ...mapGetters(["getUserData"]),
     userData() {
-      console.log(this.getUserData);
       this.user = this.getUserData;
       return this.getUserData;
     },

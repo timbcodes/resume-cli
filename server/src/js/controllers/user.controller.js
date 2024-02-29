@@ -18,7 +18,6 @@ const userController = {
     }
   },
   async setAdditionalInfo (req, res) {
-    console.log("setAdditionalInfo: req.body = ", req.body);
     try {
       const {id} = req.user;
       const data = req.body;
@@ -50,7 +49,6 @@ const userController = {
     try {
       const {id} = req.user;
       const data = req.body
-      console.log("setJobHistory: data = ", data);
       const user = await $SQLUser.setJobHistory(id, data);
       if (user) {
         responseUtils.sendResponse({res, responseBody: user});
@@ -92,11 +90,11 @@ const userController = {
       responseUtils.sendErrorResponse({res, responseBody: error});
     }
   },
-  async setEducation (req, res) {
+  async setEducationInfo (req, res) {
     try {
       const {id} = req.user;
       const data = req.body;
-      const user = await $SQLUser.setEducation(id, data);
+      const user = await $SQLUser.setEducationInfo(id, data);
       if (user) {
         responseUtils.sendResponse({res, responseBody: user});
       } else {
@@ -143,6 +141,19 @@ const userController = {
       }
     } catch (error) {
       console.log("setSummary: error = ", error);
+      responseUtils.sendErrorResponse({res, responseBody: error});
+    }
+  },
+  async setEducation (req, res) {
+    try {
+      const {id} = req.user;
+      const data = req.body;
+      const user = await $SQLUser.setEducation(id, data);
+      if (user) {
+        responseUtils.sendResponse({res, responseBody: user});
+      }
+    } catch (error) {
+      console.log("setEducation: error = ", error);
       responseUtils.sendErrorResponse({res, responseBody: error});
     }
   },

@@ -99,10 +99,8 @@ export default {
         return;
       }
       const response = await this.setSummaryInfo(userDetails);
-      console.log(response);
       if (response.status === 200) {
         await this.hydrateUserData();
-        console.log(this.userData);
         if (this.userData.brief_summary) {
           this.loading = false;
           this.changeSummary();

@@ -8,7 +8,7 @@
         <div class="text-box">
           <h1 class="title">Tell Me About Your Education</h1>
           <p>
-            Add your education in the form to the right.
+            Add your education in the form to the right. You can add up to 4 different schools and degrees. You can choose not to display your education on your resume later on. <span>(If you don't have any formal education, just leave this blank and hit Submit)</span>
           </p>
         </div>
       </div>
@@ -19,48 +19,39 @@
           <p v-if="errorMessage">{{ errorMessage }}</p>
         </div>
         <form class="education-form" @submit.prevent="formSubmit">
-          <div class="education-fields" v-for="(education, index) in form.education" :key="index">
-            <div class="left-side-form">
-              <div class="top-box">
-                <div class="input-box">
-                  <label for="degree_awarded">Degree</label>
-                  <select v-model="education.degree_awarded" required>
-                    <option value="Diploma">Diploma</option>
-                    <option value="Certificate">Certificate</option>
-                    <option value="Associates">Associates</option>
-                    <option value="Bachelors">Bachelors</option>
-                    <option value="Masters">Masters</option>
-                    <option value="Doctorate">Doctorate</option>
-                  </select>
+          <div class="form-container">
+            <div class="education-fields" v-for="(education, index) in form.education" :key="index">
+              <div class="left-side-form">
+                <div class="top-box">
+                  <div class="input-box-top">
+                    <label for="school_name">School Name</label>
+                    <input type="text" v-model="education.school_name">
+                  </div>
+                  <div class="input-box-top">
+                    <label for="studies">Concentration</label>
+                    <input type="text" v-model="education.studies">
+                  </div>
                 </div>
-                <div class="input-box">
-                  <label for="school_name">School Name</label>
-                  <input type="text" v-model="education.school_name" required>
-                </div>
-                <div class="input-box">
-                  <label for="studies">Concentration</label>
-                  <input type="text" v-model="education.studies" required>
-                </div>
-              </div>
-              <div class="bottom-box">
-                <div class="input-box">
-                  <label for="start_year">Start Year</label>
-                  <input type="text" v-model="education.start_year" required>
-                </div>
-                <div class="input-box">
-                  <label for="finish_year">Finish Year</label>
-                  <input type="text" v-model="education.finish_year" required>
+                <div class="bottom-box">
+                  <div class="input-box-bottom">
+                    <label for="start_year">Year Started</label>
+                    <input type="text" v-model="education.start_year">
+                  </div>
+                  <div class="input-box-bottom">
+                    <label for="finish_year">Year Finished</label>
+                    <input type="text" v-model="education.finish_year">
+                  </div>
+                  <div class="input-box-bottom-location">
+                    <label for="location">Location</label>
+                    <input type="text" v-model="education.location">
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="right-side-form">
-              <div class="buttons">
-                <button type="button" @click="removeEducationField(index)" :disabled="index === 0">-</button>
-                <button type="button" @click="addEducationField" :disabled="form.education.length >= 5">+</button>
-              </div>
-              <div class="input-box">
-                <label for="graduated">Graduated</label>
-                <input type="checkbox" v-model="education.graduated">
+              <div class="right-side-form">
+                <div class="buttons">
+                  <button type="button" @click="removeEducationField(index)" :disabled="index === 0">-</button>
+                  <button type="button" @click="addEducationField" :disabled="form.education.length >= 4">+</button>
+                </div>
               </div>
             </div>
           </div>
@@ -94,24 +85,44 @@ export default {
       errorMessage: '',
       form: {
         education: [{
-          degree_awarded: 'Bachelors',
           school_name: '',
           studies: '',
           start_year: '',
           finish_year: '',
-          graduated: false,
+          location: '',
         }],
       },
     };
   },
   computed: {
     ...mapGetters(['getUserData']),
+    validationSchema() {
+      return Joi.object({
+        education: Joi.array().items(Joi.object({
+          school_name: Joi.string().required(),
+          studies: Joi.string().required(),
+          start_year: Joi.string().required(),
+          finish_year: Joi.string().required(),
+          location: Joi.string().required(),
+        })).required(),
+      });
+    },
+    userData() {
+      return this.getUserData;
+    },
   },
   methods: {
     ...mapActions(['setEducationInfo', 'hydrateUserData', 'changeEducation']),
     async formSubmit() {
       this.errorMessage = '';
       this.loading = true;
+      if (this.form.education[0].school_name === '' && this.form.education[0].studies === '' && this.form.education[0].start_year === '' && this.form.education[0].finish_year === '' && this.form.education[0].location === '') {
+        await this.hydrateUserData();
+        this.loading = false;
+        this.changeEducation();
+        this.$emit('goToNext');
+        return;
+      }
       const userDetails = {
         education: this.form.education,
       };
@@ -124,7 +135,7 @@ export default {
       const response = await this.setEducationInfo(userDetails);
       if (response.status === 200) {
         await this.hydrateUserData();
-        if (this.userData.education.length > 0) {
+        if (this.userData.education) {
           this.loading = false;
           this.changeEducation();
           this.$emit('goToNext');
@@ -135,14 +146,13 @@ export default {
       this.errorMessage = 'There was an error saving your information. Please try again.';
     },
     addEducationField() {
-      if (this.form.education.length < 5) {
+      if (this.form.education.length < 4) {
         const newEducation = {
-          degree_awarded: 'Bachelors',
           school_name: '',
           studies: '',
           start_year: '',
           finish_year: '',
-          graduated: false,
+          location: '',
         };
         this.form.education.push(newEducation);
       }
@@ -153,19 +163,8 @@ export default {
       }
     },
   },
-  validations: {
-    education: Joi.array().items(Joi.object({
-      degree_awarded: Joi.string().required(),
-      school_name: Joi.string().required(),
-      studies: Joi.string().required(),
-      start_year: Joi.string().required(),
-      finish_year: Joi.string().required(),
-      graduated: Joi.boolean().required(),
-    })).required(),
-  },
 };
 </script>
-
 <style lang="scss" scoped>
 @import "@/scss/mixins.scss";
 @import "@/scss/variables.scss";
@@ -174,7 +173,7 @@ export default {
   height: 100%;
   @include flexCenter;
   .left-side {
-    width: 40%;
+    width: 30%;
     height: 100%;
     .logo-header {
       width: 100%;
@@ -205,7 +204,7 @@ export default {
     }
   }
   .right-side {
-    width: 60%;
+    width: 70%;
     height: 100%;
     .form {
       width: 100%;
@@ -224,18 +223,101 @@ export default {
         width: 100%;
         height: calc(100% - 1em);
         @include flex(column, flex-start, center);
-        background-color: red;
-        .education-fields {
-          background-color: pink;
-          width: 95%;
-          height: auto;
-          @include flex(row, flex-start, flex-start);
-          .left-side-form {
-            width: 90%;
+        .form-container {
+          width: 100%;
+          height: calc(100% - 50px);
+          @include flex(column, flex-start, center);
+          gap: 1em;
+          .education-fields {
+            width: 100%;
             height: auto;
-            background-color: orange;
-            .top-box {
-
+            @include flexCenter;
+            gap: 2em;
+            background-color: $ResGrey;
+            border: 1px solid $ResBorder;
+            border-radius: $ResRoundedEdges;
+            padding: 0.5em;
+            margin-right: 1.5em;
+            .left-side-form {
+              width: 100%;
+              height: auto;
+              @include flexCenterColumn;
+              gap: 1em;
+              .top-box {
+                width: 100%;
+                height: auto;
+                @include flexCenter;
+                gap: 1em;
+                .input-box-top {
+                  width: 100%;
+                  @include flex(column, center, flex-start);
+                  gap: 0.5em;
+                  label {
+                    font-size: 0.75em;
+                  }
+                  input {
+                    width: 100%;
+                    background-color: $ResSmoke;
+                    outline: none;
+                    border: 1px solid $ResBorder;
+                    border-radius: $ResRoundedEdges;
+                    padding: 0.25em;
+                    color: $ResCream;
+                    caret-color: $ResCream;
+                    &:focus {
+                      border: 1px solid $ResPurple;
+                    }
+                  }
+                }
+              }
+              .bottom-box {
+                width: 100%;
+                height: auto;
+                @include flexCenter;
+                .input-box-bottom,
+                .input-box-bottom-location {
+                  width: 100%;
+                  @include flex(column, center, flex-start);
+                  gap: 0.5em;
+                  label {
+                    font-size: 0.75em;
+                  }
+                  input {
+                    width: 8em;
+                    background-color: $ResSmoke;
+                    outline: none;
+                    border: 1px solid $ResBorder;
+                    border-radius: $ResRoundedEdges;
+                    padding: 0.25em;
+                    color: $ResCream;
+                    caret-color: $ResCream;
+                    &:focus {
+                      border: 1px solid $ResPurple;
+                    }
+                  }
+                }
+                .input-box-bottom-location {
+                  input {
+                    width: 100%;
+                  }
+                }
+              }
+            }
+            .right-side-form {
+              width: 10%;
+              height: auto;
+              @include flexCenterColumn;
+              gap: 1em;
+              margin-right: 1em;
+              .buttons {
+                width: 100%;
+                height: auto;
+                @include flexCenter;
+                gap: 0.5em;
+                button {
+                  @include mainButton;
+                }
+              }
             }
           }
         }
@@ -243,8 +325,10 @@ export default {
           width: 100%;
           height: 50px;
           @include flex(row, flex-end, center);
+          gap: 0.5em;
           button {
             margin-right: 1em;
+
             @include mainButton;
           }
         }

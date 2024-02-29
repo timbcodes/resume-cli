@@ -49,6 +49,16 @@ export default {
     );
     return response;
   },
+  async submitEducationInfo(payload) {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_education_info",
+      "post",
+      true,
+      payload
+    );
+    return response;
+  },
   async submitJobHistory(payload) {
     const response = await axiosUtils.axiosCall(
       "users",
@@ -76,44 +86,44 @@ export default {
       "post",
       true,
       payload
-    );
-    return response;
-  },
-  async submitEducation(payload) {
-    const response = await axiosUtils.axiosCall(
-      "users",
-      "set_education",
-      "post",
-      true,
-      payload
-    );
-    return response;
-  },
-  async changePersonalInfo() {
-    const response = await axiosUtils.axiosCall(
-      "users",
-      "set_personal",
-      "get",
-      true
-    );
-    return response;
-  },
-  async changeAdditionalInfo() {
-    const response = await axiosUtils.axiosCall(
-      "users",
-      "set_additional",
-      "get",
-      true
-    );
-    return response;
-  },
-  async changeSummary() {
-    const response = await axiosUtils.axiosCall(
-      "users",
-      "set_summary",
-      "get",
-      true
-    );
-    return response;
-  },
-};
+      );
+      return response;
+    },
+    async changePersonalInfo() {
+      const response = await axiosUtils.axiosCall(
+        "users",
+        "set_personal",
+        "get",
+        true
+        );
+        return response;
+      },
+      async changeAdditionalInfo() {
+        const response = await axiosUtils.axiosCall(
+          "users",
+          "set_additional",
+          "get",
+          true
+          );
+          return response;
+        },
+        async changeSummary() {
+          const response = await axiosUtils.axiosCall(
+            "users",
+            "set_summary",
+            "get",
+            true
+            );
+            return response;
+          },
+          async changeEducation(payload) {
+            const response = await axiosUtils.axiosCall(
+              "users",
+              "set_education",
+              "get",
+              true,
+              payload
+            );
+            return response;
+          },
+        };

@@ -13,7 +13,6 @@ export default {
   async hydrateLoginData({ commit }) {
     try {
       const response = await userDataApi.getLoginData();
-      console.log('response.data[0]', response.data[0]);
       commit('setLoginData', response.data[0]);
       return response;
     } catch (error) {
@@ -47,6 +46,15 @@ export default {
       console.error('Error setting summary:', error);
     }
   },
+  async setEducationInfo({ commit }, userData) {
+    try {
+      const response = await userDataApi.submitEducationInfo(userData);
+      commit('updateUserData', response.data);
+      return response;
+    } catch (error) {
+      console.error('Error setting education info:', error);
+    }
+  },
   async changePersonalInfo() {
     try {
       await userDataApi.changePersonalInfo();
@@ -66,6 +74,13 @@ export default {
       await userDataApi.changeSummary();
     } catch (error) {
       console.error('Error changing summary:', error);
+    }
+  },
+  async changeEducation() {
+    try {
+      await userDataApi.changeEducation();
+    } catch (error) {
+      console.error('Error changing education:', error);
     }
   },
 };

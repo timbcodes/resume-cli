@@ -2,7 +2,6 @@ const executeQuery = require('../services/database_query.service');
 
 const $SQLUser = {
   async setUserInfo (id, data) {
-    console.log("setUserInfo: data = ", data);
     try {
       const query = 'INSERT INTO user_details (first_name, last_name, address, city, state, zip, phone_number, email, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
       const result = await executeQuery(query, [data.first_name, data.last_name, data.address, data.city, data.state, data.zip, data.phone_number, data.email, id]);
@@ -14,7 +13,6 @@ const $SQLUser = {
   },
   async setAdditionalInfo (id, data) {
     try {
-      console.log(data);
       const query = 'UPDATE user_details SET job_title = ?, title_search = ?, career_industry = ?, career_years = ?, previous_jobs = ? WHERE user_id = ?';
       const result = await executeQuery(query, [data.job_title, data.title_search, data.career_industry, data.career_years, data.previous_jobs, id]);
       return result;
@@ -30,6 +28,16 @@ const $SQLUser = {
       return result;
     } catch (error) {
       console.log("setSummary: error = ", error);
+      throw error;
+    }
+  },
+  async setEducationInfo (id, data) {
+    try {
+      const query = 'UPDATE user_details SET education = ? WHERE user_id = ?';
+      const result = await executeQuery(query, [data.education, id]);
+      return result;
+    } catch (error) {
+      console.log("setEducation: error = ", error);
       throw error;
     }
   },
@@ -63,16 +71,6 @@ const $SQLUser = {
       throw error;
     }
   },
-  async setEducation (id, data) {
-    try {
-      const query = 'UPDATE jobs SET education = ? WHERE user_id = ?';
-      const result = await executeQuery(query, [data, id]);
-      return result;
-    } catch (error) {
-      console.log("setEducation: error = ", error);
-      throw error;
-    }
-  },
   async setPersonal (id) {
     try {
       const query = 'UPDATE users SET personal_info = ? WHERE id = ?';
@@ -100,6 +98,16 @@ const $SQLUser = {
       return result;
     } catch (error) {
       console.log("setSummary: error = ", error);
+      throw error;
+    }
+  },
+  async setEducation (id) {
+    try {
+      const query = 'UPDATE users SET education = ? WHERE id = ?';
+      const result = await executeQuery(query, [true, id]);
+      return result;
+    } catch (error) {
+      console.log("setEducation: error = ", error);
       throw error;
     }
   },

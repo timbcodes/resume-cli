@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-      <div class="main-loading">
+      <div class="main-loading" v-if="loading">
         <MainLoading />
         <span>Loading...</span>
       </div>

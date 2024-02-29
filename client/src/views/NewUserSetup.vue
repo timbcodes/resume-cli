@@ -5,7 +5,7 @@
         <UserInfo v-if="page=='personal'" @goToNext="goToCareer" />
         <CareerDetails v-if="page=='career'" @goToNext="goToSummary" />
         <CareerSummary v-if="page=='summary'" @goToNext="goToEducation" />
-        <UserEducation v-if="page=='education'" />
+        <UserEducation v-if="page=='education'" @goToNext="goToDash" />
       </div>
     </div>
     <div class="logo-footer">
@@ -60,6 +60,9 @@ export default {
     },
     goToEducation() {
       this.page = "education";
+    },
+    goToDash() {
+      this.$router.push("/");
     },
   },
   mounted() {
