@@ -5,6 +5,7 @@
         :loading="cardLoading"
         :user="userData"
         :loggedInUser="loginData"
+        @rehydrate="rehydrate"
       />
     </div>
     <div class="right-card">
@@ -42,19 +43,27 @@ export default {
   },
   methods: {
     ...mapActions(["hydrateUserData", "hydrateLoginData"]),
-    buildUser() {
-      this.hydrateUserData();
+    async buildUser() {
+      await this.hydrateUserData();
     },
-    buildLogin() {
-      this.hydrateLoginData();
+    async buildLogin() {
+      await this.hydrateLoginData();
+    },
+    async rehydrate() {
+      this.cardLoading = true;
+      this.loading = true;
+      await this.hydrateUserData();
+      await this.hydrateLoginData();
+      this.loading = false;
+      this.cardLoading = false;
     },
   },
-  created() {
+  async created() {
     this.cardLoading = true;
     this.detailLoading = true;
-    this.buildUser();
+    await this.buildUser();
     this.detailLoading = false;
-    this.buildLogin();
+    await this.buildLogin();
     this.cardLoading = false;
   },
 };

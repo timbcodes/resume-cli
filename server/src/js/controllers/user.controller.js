@@ -17,6 +17,21 @@ const userController = {
       responseUtils.sendErrorResponse({res, responseBody: error});
     }
   },
+  async editUserInfo (req, res) {
+    try {
+      const {id} = req.user;
+      const data = req.body;
+      const user = await $SQLUser.editUserInfo(id, data);
+      if (user) {
+        responseUtils.sendResponse({res, responseBody: user});
+      } else {
+        responseUtils.sendNotFound({res, statusCode: 401, responseBody: {message: 'Unauthorized'}});
+      }
+    } catch (error) {
+      console.log("editUserInfo: error = ", error);
+      responseUtils.sendErrorResponse({res, responseBody: error});
+    }
+  },
   async setAdditionalInfo (req, res) {
     try {
       const {id} = req.user;

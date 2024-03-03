@@ -51,6 +51,10 @@
           <span class="edit-label">Here's a Brief Summary of My Experience:</span>
           <textarea ref="summary" v-model="currentUser.brief_summary" rows="5" cols="50"></textarea>
         </div>
+        <div class="edit-button">
+          <button @click="edit = false">Cancel</button>
+          <button @click="saveNewData">Save</button>
+        </div>
       </div>
     </div>
   </div>
@@ -187,6 +191,7 @@ export default {
   .edit-button {
     width: 100%;
     height: 3em;
+    gap: 1em;
     @include flex(row, flex-end, center);
     button {
       @include mainButton;

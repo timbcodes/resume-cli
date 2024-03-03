@@ -69,7 +69,6 @@ export default {
     @include flexCenterColumn;
     gap: 2em;
     .display-item {
-      border-bottom: 1px solid $ResBorderLight;
       width: 100%;
       @include flex(row, space-between, center);
       gap: 2em;

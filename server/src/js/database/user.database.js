@@ -11,6 +11,16 @@ const $SQLUser = {
       throw error;
     }
   },
+  async editUserInfo (id, data) {
+    try {
+      const query = 'UPDATE user_details SET first_name = ?, last_name = ?, address = ?, city = ?, state = ?, zip = ?, phone_number = ?, email = ? WHERE user_id = ?';
+      const result = await executeQuery(query, [data.first_name, data.last_name, data.address, data.city, data.state, data.zip, data.phone_number, data.email, id]);
+      return result;
+    } catch (error) {
+      console.log("editUserInfo: error = ", error);
+      throw error;
+    }
+  },
   async setAdditionalInfo (id, data) {
     try {
       const query = 'UPDATE user_details SET job_title = ?, title_search = ?, career_industry = ?, career_years = ?, previous_jobs = ? WHERE user_id = ?';

@@ -16,6 +16,9 @@
           <span>{{ loggedInUser.email }}</span>
         </div>
       </div>
+      <div class="warning-container">
+          <p v-if="warning">{{ warningMessage }}</p>
+      </div>
       <div class="secondary-data">
         <DetailsDisplay
           v-if="!edit"
@@ -26,6 +29,9 @@
           v-if="edit"
           :currentUser="user"
           @toggle="toggleEdit"
+          @close="toggleEdit"
+          @rehydrate="rehydrate"
+          @error="throwWarning(message)"
         />
       </div>
     </div>
@@ -50,6 +56,8 @@ export default {
   data() {
     return {
       edit: false,
+      warning: false,
+      warningMessage: "There was an error. Please try again.",
     };
   },
   methods: {
@@ -61,6 +69,13 @@ export default {
     },
     toggleEdit() {
       this.edit = !this.edit;
+    },
+    throwWarning(message) {
+      this.warning = true;
+      this.warningMessage = message;
+    },
+    rehydrate() {
+      this.$emit("rehydrate");
     },
   },
   computed: {
@@ -94,7 +109,7 @@ export default {
     height: 100%;
     .main-data {
       width: 100%;
-      height: 30%;
+      height: 12rem;
       @include flexCenterColumn;
       .user-avatar {
       width: 50px;
@@ -111,6 +126,15 @@ export default {
       }
       .email {
         margin-top: 0.25em;
+      }
+    }
+    .warning-container {
+      width: 100%;
+      height: 0.75em;
+      @include flexCenterColumn;
+      p {
+        font-size: 0.75rem;
+        color: $ResWarning;
       }
     }
     .secondary-data {

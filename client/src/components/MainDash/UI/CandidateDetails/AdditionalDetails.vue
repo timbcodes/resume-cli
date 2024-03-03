@@ -19,14 +19,6 @@
           v-if="currentMenuItem === 'Details'"
           :currentUser="user"
         />
-        <SummaryDisplay
-          v-if="currentMenuItem === 'Summary'"
-          :currentUser="user"
-        />
-        <EducationDisplay
-          v-if="currentMenuItem === 'Education'"
-          :currentUser="user"
-        />
     </div>
   </div>
 </template>

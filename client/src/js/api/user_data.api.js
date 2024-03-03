@@ -88,42 +88,52 @@ export default {
       payload
       );
       return response;
+  },
+  async editUserInfo(payload) {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "edit_user_info",
+      "post",
+      true,
+      payload
+    );
+    return response;
+  },
+  async changePersonalInfo() {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_personal",
+      "get",
+      true
+      );
+      return response;
     },
-    async changePersonalInfo() {
-      const response = await axiosUtils.axiosCall(
-        "users",
-        "set_personal",
-        "get",
-        true
-        );
-        return response;
-      },
-      async changeAdditionalInfo() {
-        const response = await axiosUtils.axiosCall(
-          "users",
-          "set_additional",
-          "get",
-          true
-          );
-          return response;
-        },
-        async changeSummary() {
-          const response = await axiosUtils.axiosCall(
-            "users",
-            "set_summary",
-            "get",
-            true
-            );
-            return response;
-          },
-          async changeEducation(payload) {
-            const response = await axiosUtils.axiosCall(
-              "users",
-              "set_education",
-              "get",
-              true,
-              payload
-            );
-            return response;
-          },
-        };
+  async changeAdditionalInfo() {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_additional",
+      "get",
+      true
+      );
+      return response;
+    },
+  async changeSummary() {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_summary",
+      "get",
+      true
+      );
+      return response;
+    },
+  async changeEducation(payload) {
+    const response = await axiosUtils.axiosCall(
+      "users",
+      "set_education",
+      "get",
+      true,
+      payload
+    );
+    return response;
+  },
+};

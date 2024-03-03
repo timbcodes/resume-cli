@@ -55,6 +55,15 @@ export default {
       console.error('Error setting education info:', error);
     }
   },
+  async editUserInfo({ commit }, userData) {
+    try {
+      const response = await userDataApi.editUserInfo(userData);
+      commit('updateUserData', response.data);
+      return response;
+    } catch (error) {
+      console.error('Error editing user info:', error);
+    }
+  },
   async changePersonalInfo() {
     try {
       await userDataApi.changePersonalInfo();
