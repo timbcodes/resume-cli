@@ -39,8 +39,8 @@
 </template>
 <script>
 import MainLoadingSpinner from '@/components/UI/MainLoadingSpinner';
-import DetailsDisplay from './DetailsDisplay';
-import DetailsEditForm from './DetailsEditForm';
+import DetailsDisplay from './UI/DetailsDisplay';
+import DetailsEditForm from './UI/DetailsEditForm';
 export default {
   name: "CandidateCard",
   components: {
