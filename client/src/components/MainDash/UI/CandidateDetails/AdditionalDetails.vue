@@ -83,11 +83,12 @@ export default {
       height: 100%;
       @include flexCenter;
       cursor: pointer;
-      &:hover {
-        background-color: $ResPurple;
-      }
       &.active {
         background-color: $ResPurple;
+      }
+      &:hover {
+        background-color: $ResCream !important;
+        color: $ResPurple;
       }
     }
   }
