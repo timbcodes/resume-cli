@@ -19,17 +19,23 @@
           v-if="currentMenuItem === 'Details'"
           :currentUser="user"
         />
+        <UserEducation
+          v-else-if="currentMenuItem === 'Education'"
+          :currentUser="user"
+        />
     </div>
   </div>
 </template>
 <script>
 import MainLoadingSpinner from "@/components/UI/MainLoadingSpinner";
-import UserDetails from "./UI/UserDetails";
+import UserDetails from "./UserDetails";
+import UserEducation from "./UserEducation";
 export default {
   name: "AdditionalDetails",
   components: {
     MainLoadingSpinner,
     UserDetails,
+    UserEducation,
   },
   props: {
     loading: Boolean,
