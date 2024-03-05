@@ -1,6 +1,9 @@
 <template>
   <div class="user-education">
     <h3 class="user-education-title">Education</h3>
+    <div class="warning-container">
+      <p v-if="error">There was an error saving your data</p>
+    </div>
     <div class="user-education-content" v-if="!edit">
       <div class="user-education-item-container">
         <div class="user-education-content-item" v-for="(edu, index) in education" :key="index">
@@ -68,8 +71,8 @@
     </div>
   </div>
 </template>
-
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "UserEducation",
   props: {
@@ -77,13 +80,23 @@ export default {
   },
   data() {
     return {
-      edit: true,
+      error: false,
+      edit: false,
       education: this.currentUser.education,
     };
   },
   methods: {
-    saveNewData() {
-      console.log("Fix Me!");
+    ...mapActions(["setEducationInfo"]),
+    async saveNewData() {
+      const data = {
+        education: this.education,
+      };
+      const results = await this.setEducationInfo(data);
+      if (results.status === 200) {
+        this.edit = false;
+        return;
+      }
+      this.error = true;
     },
   },
 };
@@ -101,6 +114,15 @@ export default {
     font-size: 1.5em;
     font-weight: bold;
     margin-bottom: 1em;
+  }
+  .warning-container {
+    width: 100%;
+    height: 0.75em;
+    @include flexCenter;
+    p {
+      font-size: 0.75em;
+      color: $ResWarning;
+    }
   }
   .user-education-content {
     width: 100%;
