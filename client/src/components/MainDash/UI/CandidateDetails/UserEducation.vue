@@ -65,7 +65,7 @@
         </div>
         <div class="edit-button">
           <button @click="edit = false">Cancel</button>
-          <button @click="saveNewData">Save</button>
+          <button @click="saveNewData">Save <TextLoadingSpinner v-if="loading" /></button>
         </div>
       </div>
     </div>
@@ -73,8 +73,12 @@
 </template>
 <script>
 import { mapActions } from "vuex";
+import TextLoadingSpinner from "@/components/UI/TextLoadingSpinner.vue";
 export default {
   name: "UserEducation",
+  components: {
+    TextLoadingSpinner,
+  },
   props: {
     currentUser: Object,
   },
@@ -82,20 +86,24 @@ export default {
     return {
       error: false,
       edit: false,
+      loading: false,
       education: this.currentUser.education,
     };
   },
   methods: {
     ...mapActions(["setEducationInfo"]),
     async saveNewData() {
+      this.loading = true;
       const data = {
         education: this.education,
       };
       const results = await this.setEducationInfo(data);
       if (results.status === 200) {
+        this.loading = false;
         this.edit = false;
         return;
       }
+      this.loading = false;
       this.error = true;
     },
   },
@@ -238,6 +246,7 @@ export default {
         @include flex(row, flex-end, center);
         button {
           @include mainButton;
+          gap: 0.5em;
         }
       }
     }
