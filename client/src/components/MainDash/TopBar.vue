@@ -6,15 +6,13 @@
       </div>
     </div>
     <div class="right-side">
-      <div class="search-bar">
-        <input type="text" placeholder="Search" />
-      </div>
       <div class="current-tokens">
         <i class="bi bi-credit-card-fill"></i>
         <span>Credits:</span>
         <TextLoadingSpinner class="spinner" v-if="creditLoading"/>
         <span v-if="!creditLoading">{{ showCredits }}</span>
       </div>
+      <div class="horizontal-bar"></div>
       <div class="user-section">
         <CurrentUser />
       </div>
@@ -84,20 +82,10 @@ export default {
     @include flex(row, flex-end, center);
     gap: 2em;
     margin-right: 1em;
-    .search-bar {
-      width: 200px;
-      height: 30px;
-      input {
-        background-color: $ResGrey;
-        caret-color: $ResWhite;
-        color: $ResWhite;
-        width: 100%;
-        height: 100%;
-        padding: 10px;
-        border: 1px solid $ResBorder;
-        border-radius: 5px;
-        outline: none;
-      }
+    .horizontal-bar {
+      width: 1px;
+      height: 50%;
+      background-color: $ResBorder;
     }
     .current-tokens {
       @include flex(row, center, center);
@@ -116,9 +104,6 @@ export default {
     .notification-section {
       margin-left: 20px;
       font-size: 1.5rem;
-    }
-    .user-section {
-      margin-left: 20px;
     }
   }
 }

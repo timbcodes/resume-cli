@@ -8,7 +8,7 @@
         <div class="text-box">
           <h1 class="title">Tell Me About Your Education</h1>
           <p>
-            Add your education in the form to the right. You can add up to 4 different schools and degrees. You can choose not to display your education on your resume later on. <span>(If you don't have any formal education, just leave this blank and hit Submit)</span>
+            Add your education in the form to the right. You can add up to 3 different schools and degrees. You can choose not to display your education on your resume later on. <span>(If you don't have any formal education, just leave this blank and hit Submit)</span>
           </p>
         </div>
       </div>
@@ -50,7 +50,7 @@
               <div class="right-side-form">
                 <div class="buttons">
                   <button type="button" @click="removeEducationField(index)" :disabled="index === 0">-</button>
-                  <button type="button" @click="addEducationField" :disabled="form.education.length >= 4">+</button>
+                  <button type="button" @click="addEducationField" :disabled="form.education.length >= 3">+</button>
                 </div>
               </div>
             </div>
@@ -146,7 +146,7 @@ export default {
       this.errorMessage = 'There was an error saving your information. Please try again.';
     },
     addEducationField() {
-      if (this.form.education.length < 4) {
+      if (this.form.education.length < 3) {
         const newEducation = {
           school_name: '',
           studies: '',
