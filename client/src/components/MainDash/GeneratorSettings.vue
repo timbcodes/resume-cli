@@ -209,7 +209,7 @@ export default {
             @include flexCenter;
             width: 50%;
             height: 1px;
-            background-color: $ResCream;
+            background-color: $ResBorder;
             margin: 1em 0;
           }
           .bottom-settings {
@@ -251,7 +251,7 @@ export default {
       .vertical-divider {
         width: 1px;
         height: 90%;
-        background-color: $ResCream;
+        background-color: $ResBorder;
       }
     }
   }
