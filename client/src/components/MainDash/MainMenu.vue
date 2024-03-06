@@ -21,20 +21,6 @@ export default {
     ProfileInfo,
     MenuItems
   },
-  data() {
-    return {
-      // data
-    };
-  },
-  methods: {
-    // methods
-  },
-  created() {
-    // created
-  },
-  mounted() {
-    // mounted
-  }
 };
 </script>
 <style lang="scss" scoped>

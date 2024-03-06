@@ -44,7 +44,7 @@
           <i class="bi bi-person-fill"></i>
           <span>Candidate Details</span>
         </div>
-        <div class="generation-settings">
+        <div class="generation-settings" :class="{'active-menu-item': currentPage === 'Generator Settings'}" @click="setNewPage('Generator Settings')">
           <i class="bi bi-gear-fill"></i>
           <span>Generator Settings</span>
         </div>
