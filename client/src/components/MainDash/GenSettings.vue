@@ -205,6 +205,10 @@ export default {
                   p {
                     font-size: 1rem;
                   }
+                  &:hover {
+                    border: 1px solid $ResPurple;
+                    background-color: $ResBlack;
+                  }
                 }
                 .activeLength {
                   border: 1px solid $ResPurple;
