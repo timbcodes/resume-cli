@@ -15,7 +15,7 @@
           <div class="main-content" v-if="!loading">
             <MainDashboard v-if="currentPage == 'Dashboard'" />
             <CandidateDetails v-if="currentPage == 'Candidate Details'" />
-            <GeneratorSettings v-if="currentPage == 'Generator Settings'" />
+            <GenSettings v-if="currentPage == 'Generator Settings'" />
           </div>
           <div class="loading-container" v-if="loading">
             <MainLoading />
@@ -32,7 +32,7 @@ import TopBar from "@/components/MainDash/TopBar";
 import MainLoading from "@/components/UI/MainLoadingSpinner";
 import MainDashboard from "@/components/MainDash/MainDashboard";
 import CandidateDetails from "@/components/MainDash/CandidateDetails";
-import GeneratorSettings from "@/components/MainDash/GeneratorSettings";
+import GenSettings from "@/components/MainDash/GenSettings";
 export default {
   name: "MainDash",
   components: {
@@ -41,7 +41,7 @@ export default {
     MainLoading,
     MainDashboard,
     CandidateDetails,
-    GeneratorSettings
+    GenSettings,
   },
   data() {
     return {
